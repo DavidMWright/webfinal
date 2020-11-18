@@ -1,10 +1,19 @@
+html {
+  background-image: linear-gradient(#646464 0%, #ffffff 100%);
+  background-attachment: fixed;
+}
 body {
   font-family: "Times New Roman", Arial, Helvetica, sans-serif;
 }
 header {
-  background-image:"../svg/HeaderGraphic.svg";
+  
+  height: 100px;
 }
-header nav {
+.siteHeader {
+  float: left;
+}
+.userIcon {
+  padding-top: 50px;
   float: right;
 }
 
