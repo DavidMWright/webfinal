@@ -1,4 +1,5 @@
 var User = require('../models/userModel');
+var async = require('async');
 
 // Display User details
 exports.user_detail = function(req, res) {
