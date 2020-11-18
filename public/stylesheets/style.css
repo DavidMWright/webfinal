@@ -21,6 +21,15 @@ h1 {
   align-items: center;
 }
 
+.signinButton > input {
+  border-width: 0px;
+  border-radius: 5px;
+  background-color: #00B7FF;
+  font-size: 15px;
+  color: white;
+  padding: 5px 10px;;
+}
+
 .week {
   text-align: center;
   font-size: 20px;
