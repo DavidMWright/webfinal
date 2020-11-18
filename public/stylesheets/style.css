@@ -26,6 +26,11 @@ a {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
+}
+
+.weekItem {
+  flex-grow: 1;
 }
 
 .weekItem > h1 {
@@ -37,7 +42,39 @@ a {
   border: solid black;
   border-width: 2px;
   padding: 10px;
-  width: 10vw;
-  min-width: 100px;
   background-color: lightgray;
+}
+
+.current {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*TODO: figure out how to stop the current temp from taking up more than half the width of the page*/
+.current > h1 {
+  font-size: 15em;
+  margin: 0;
+  flex-grow: 3;
+}
+
+.current > h1 > sup {
+  font-size: 5vh;
+  margin-top: -5vh;
+}
+
+.currentWeather {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  flex-grow: 1;
+}
+
+.currentWeather > p {
+  text-align: center;
+  font-size: 20px;
+}
+
+.currentWeather > img {
+  max-width: 100%;
 }
