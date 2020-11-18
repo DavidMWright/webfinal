@@ -101,3 +101,10 @@ h1 {
   margin: 0;
   text-align: center;
 }
+
+.moodsModule > select {
+  border-width: 0;
+  background-color: transparent;
+  font-size: 3em;
+  text-align: center;
+}
