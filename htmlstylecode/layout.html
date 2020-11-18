@@ -13,13 +13,32 @@
       </div>
       
       <!--The users icon that acts like a dropdown-->
-      <div class = "userIcon">
-        <a>Home</a>
-        <a>Analytics</a>
-        <a>Edit Profile</a>
-        <a>Sign Out</a>
+      <div class = "userMenu">
+        <button onclick="menuFunction()" class="user" id="userButton"></button>
+          <div id="dropdown" class="dropdownItems">
+            <a href ="pathHome">Home</a>
+            <a href ="pathAnalytics">Analytics</a>
+            <a href ="pathEdit">Edit Profile</a>
+            <a href ="pathSignOut">Sign Out</a>
+          </div>
       </div>
-      </nav>
     </header>
   </body>
+  <script>
+    function menuFunction() {
+      document.getElementById("dropdown").classList.toggle("show");
+    }
+    window.onclick = function(event) {
+      if (!event.target.matches('.user')) {
+        var dropdowns = document.getElementsByClassName("dropdownItems");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
 </html>

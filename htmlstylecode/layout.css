@@ -1,22 +1,67 @@
 html {
-  background-image: linear-gradient(#646464 0%, #ffffff 100%);
-  background-attachment: fixed;
+  background-image: url("../svg/MobileBackground.svg");
+
+  height: 1000px;
+  width: auto;
+  background-repeat: no-repeat;
 }
 body {
   font-family: "Times New Roman", Arial, Helvetica, sans-serif;
 }
-header {
-  
-  height: 100px;
-}
 .siteHeader {
   float: left;
 }
-.userIcon {
-  padding-top: 50px;
+.userMenu {
+  padding-top: 60px;
+  padding-right: 80px;
   float: right;
 }
 
 
 
+#userButton {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}
 
+/*User Dropdown*/
+.user {
+  /*User icon will be background image*/
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.user:hover, .user:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  align-items: right;
+}
+
+.dropdownItems {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdownItems a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdownItems a:hover {background-color: #ddd;}
+
+.show {display: block;}
