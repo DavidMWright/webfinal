@@ -1,8 +1,119 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-image: linear-gradient(grey, lightgrey);
+  background-attachment: fixed;
 }
 
 a {
   color: #00B7FF;
+}
+
+h1 {
+  margin: 0;
+}
+
+.signin {
+  height: 25vh;
+  margin-top: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signinButton > input {
+  border-width: 0px;
+  border-radius: 5px;
+  background-color: #00B7FF;
+  font-size: 15px;
+  color: white;
+  padding: 5px 10px;;
+}
+
+.week {
+  text-align: center;
+  font-size: 20px;
+}
+
+.weekContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.weekItem {
+  flex-grow: 1;
+}
+
+.weekItem > h1 {
+  font-size: 30px;
+}
+
+.weekItemContent {
+  border: solid black;
+  border-width: 2px;
+  padding: 10px;
+  background-color: lightgray;
+}
+
+.current {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/*TODO: figure out how to stop the current temp from taking up more than half the width of the page*/
+.current > h1 {
+  font-size: 15em;
+  flex-grow: 3;
+}
+
+.current > h1 > sup {
+  font-size: 5vh;
+  margin-top: -5vh;
+}
+
+.currentWeather {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  flex-grow: 1;
+}
+
+.currentWeather > p {
+  text-align: center;
+  font-size: 20px;
+}
+
+.currentWeather > img {
+  max-width: 100%;
+}
+
+.moods {
+  display: flex;
+  justify-content: space-between;
+}
+
+.moodsModule {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.moodsModule > h1 {
+  font-size: 10em;
+}
+
+.moodsModule > p {
+  font-size: 3em;
+  margin: 0;
+  text-align: center;
+}
+
+.moodsModule > select {
+  border-width: 0;
+  background-color: transparent;
+  font-size: 3em;
+  text-align: center;
 }

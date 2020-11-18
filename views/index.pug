@@ -1,9 +1,12 @@
 extends layout
 
 block content
-  h1= title
-
-  h4
-     a(href='/users') profile
-
-  p Welcome to #{title}
+  .signin
+    p Username: 
+      input(type="text" name="username")
+    p Password: 
+      input(type="text" name="password")
+    .signinButton
+      input(type="submit" value="Sign In" onclick="login()")
+    p Not a member? 
+      a(href='http://example.com') Sign up
