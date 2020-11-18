@@ -1,0 +1,13 @@
+body {
+  font-family: "Times New Roman", Arial, Helvetica, sans-serif;
+}
+header {
+  background-image:"../svg/HeaderGraphic.svg";
+}
+header nav {
+  float: right;
+}
+
+
+
+
