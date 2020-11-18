@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .week
+    p 7 Day Forcast and Predicted Mood
+    .weekContainer
+      - let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
+      each day in days
+        .weekItem
+          h1= day
+          .weekItemContent
+            img(src='https://via.placeholder.com/100/666666/ffffff?text=icon')
+            h2 -40%
+  .current
+    //TODO: make the superscript look better
+    h1 45&deg<sup>F | C</sup>
+    .currentWeather
+      img(src='https://via.placeholder.com/100/666666/ffffff?text=icon')
+      p Rain
+  .moods
+    .moodsModule
+      h1 -30%
+      p Your mood
+    .moodsModule
+      h1 -28%
+      select(name="moodgroup" id="moodgroup")
+        option(value="zip") Zip Code
+  
