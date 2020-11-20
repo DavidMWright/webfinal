@@ -1,7 +1,18 @@
 doctype html
-html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Weather Moods
+  link(rel='stylesheet' href='layout.css')
+header
+  .siteHeader
+    h1 Weather Moods
+    h2.currentLocation currentLocation
+  // The users icon that acts like a dropdown
+  .userMenu
+    button#userButton.user(onclick='menuFunction()')
+    #dropdown.dropdownItems
+      a(href='pathHome') Home
+      a(href='pathAnalytics') Analytics
+      a(href='pathEdit') Edit Profile
+      a(href='pathSignOut') Sign Out
