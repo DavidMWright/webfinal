@@ -132,9 +132,23 @@ h1 {
   }
 }
 
+table {
+  width: 95%;
+  height: 100%
+}
+
+td {
+  border-width: 3px;
+  border-color: black;
+  border-style: solid;
+  text-align: right;
+  vertical-align: top;
+}
+
 .calendarContainer {
   display: flex;
   flex-wrap: wrap;
+  margin: 10px;
 }
 
 .calendarKey {
@@ -148,6 +162,7 @@ h1 {
 .calendarKeyItem {
   margin: auto 0;
   display: flex;
+  font-size: 20px;
 }
 
 .calendarKeyColor {
