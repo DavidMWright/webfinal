@@ -21,6 +21,11 @@ h1 {
   align-items: center;
 }
 
+.signup {
+  display: flex;
+  justify-content: center;
+}
+
 .signinButton > input {
   border-width: 0px;
   border-radius: 5px;
