@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var MoodSchema = new Schema(
   {
-    moodPercent: {type: Number, required: true},
+    mood_percent: {type: Number, required: true},
     _user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     _weather: {type: mongoose.Schema.Types.ObjectId, ref: 'Weather'}
   }
