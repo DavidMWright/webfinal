@@ -4,6 +4,9 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    .headerCurve
+      h1 Weather Moods
+      h2(class="currentLocation") Current Location
     <svg width='0' height='0'>
       <defs>
         <clipPath id="headercurve" clipPathUnits="objectBoundingBox">
@@ -11,7 +14,5 @@ html
         </clipPath>
       </defs>
     </svg>
-    .headerCurve
-      h1 Weather Moods
-      h2(class="currentLocation") Current Location
-    block content
+    .contentContainer
+      block content
