@@ -13,11 +13,22 @@ h1 {
   margin: 0;
 }
 
-.headerCurve {
-  clip-path: url(#headercurve);
-  background-color: #00B7FF;
-  height: 25vh;
-  padding: 25px;
+@media only screen and (orientation: portrait) {
+  .headerCurve {
+    clip-path: url(#headercurve);
+    background-color: #00B7FF;
+    height: 10vh;
+    padding: 25px;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .headerCurve {
+    clip-path: url(#headercurve);
+    background-color: #00B7FF;
+    height: 25vh;
+    padding: 25px;
+  }
 }
 
 .headerCurve > h1 {
