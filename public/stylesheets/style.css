@@ -17,7 +17,7 @@ h1 {
   .headerCurve {
     clip-path: url(#headercurve);
     background-color: #00B7FF;
-    height: 10vh;
+    height: 15vh;
     padding: 25px;
   }
 }
@@ -52,18 +52,51 @@ h1 {
   align-items: center;
 }
 
+.signin > label {
+  margin: 5px;
+}
+
 .signup {
   display: flex;
   justify-content: center;
 }
 
+@media only screen and (orientation: portrait) {
+  .signin {
+    height: 17vh;
+    justify-content: flex-end;
+  }
+  .signin > label {
+    font-size: 30px;
+    margin: 10px;
+  }
+
+  .signintext {
+    width: 200px;
+    height: 30px;
+  }
+
+  .signup {
+    font-size: 25px;
+  }
+}
+
 .signinButton > input {
   border-width: 0px;
-  border-radius: 5px;
+  border-radius: 15%;
   background-color: #00B7FF;
   font-size: 15px;
   color: white;
-  padding: 5px 10px;;
+  padding: 5px 10px;
+  margin: 5px;
+}
+
+@media only screen and (orientation: portrait) {
+  .signinButton > input {
+    font-size: 30px;
+    padding: 10px 20px;
+    margin: 10px;
+  }
 }
 
 .err {
