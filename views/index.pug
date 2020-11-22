@@ -6,10 +6,10 @@ block append scripts
 block content
     form(action="/home" method="POST")
       .signin
-        p Username: 
-          input(type="text" name="username")
-        p Password: 
-          input(type="password" name="password")
+        label Username: 
+          input(type="text" name="username" class="signintext")
+        label Password: 
+          input(type="password" name="password" class="signintext")
         .signinButton
           input(type="submit" value="Sign In")
         .err
