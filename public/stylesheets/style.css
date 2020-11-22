@@ -2,6 +2,7 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-image: linear-gradient(grey, lightgrey);
   background-attachment: fixed;
+  margin: 0;
 }
 
 a {
@@ -12,9 +13,39 @@ h1 {
   margin: 0;
 }
 
+@media only screen and (orientation: portrait) {
+  .headerCurve {
+    clip-path: url(#headercurve);
+    background-color: #00B7FF;
+    height: 10vh;
+    padding: 25px;
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .headerCurve {
+    clip-path: url(#headercurve);
+    background-color: #00B7FF;
+    height: 25vh;
+    padding: 25px;
+  }
+}
+
+.headerCurve > h1 {
+  font-size: 40px;
+}
+
+.headerCurve > h2 {
+  margin: 20px 0px;
+}
+
+.contentContainer {
+  margin: 0px 10px;
+}
+
 .signin {
   height: 25vh;
-  margin-top: 25vh;
+  margin-top: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -122,6 +153,14 @@ h1 {
   font-size: 3em;
   text-align: center;
 }
+
+
+.siteheader {
+  height: 200px;
+  width: 100%;
+  background-color: lightsalmon;
+  -webkit-clip-path: ellipse(75% 50% at 05% 0%);
+  clip-path: ellipse(75% 50% at 0% 0%);
 
 @media only screen and (orientation: landscape) {
   .calendar {
