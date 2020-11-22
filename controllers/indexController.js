@@ -7,7 +7,7 @@ exports.home_page = function(req, res, next) {
         res.redirect('/?err=' + err);
     }
     else {
-        let query = users.find({ username: req.body.username }); 
+        let query = users.find({ user_name: req.body.username }); 
         query.exec(function(err, qUsers) {
             if(err) {
                 console.log(err);
@@ -24,11 +24,6 @@ exports.home_page = function(req, res, next) {
                         res.redirect('/?err=' + err);                    
                     }
                 });
-                
-                console.log(user.password)
-
-                let err = encodeURIComponent('Invalid Credentials');
-                res.redirect('/?err=' + err);
             }
         });
     }
