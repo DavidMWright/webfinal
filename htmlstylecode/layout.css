@@ -8,9 +8,6 @@ html {
 body {
   font-family: "Times New Roman", Arial, Helvetica, sans-serif;
 }
-header {
-  display: block;
-}
 .siteHeader {
   float: left;
   width: 50%;
