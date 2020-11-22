@@ -1,5 +1,8 @@
 extends layout
 
+block append scripts
+  script(src='/scripts/calendar.js')
+
 block content
   .week
     p 7 Day Forcast and Predicted Mood
@@ -25,4 +28,14 @@ block content
       h1 -28%
       select(name="moodgroup" id="moodgroup")
         option(value="zip") Zip Code
-  
+  .calendarContainer
+    <div class="calendar">HELLOOO</div>
+    .calendarKey
+      - let colors=['red', 'orange', 'yellow', 'greenyellow', 'forestgreen']
+      - let label=['-61% to -100%', '-31% to -60%', '-30% to 30%', '31% to 60%', '61% to 100%']
+      - let i = 0
+      while i < 5
+        .calendarKeyItem
+          <div class="calendarKeyColor" style="background-color: #{colors[i]}"></div>
+          p #{label[i]}
+        - i++
