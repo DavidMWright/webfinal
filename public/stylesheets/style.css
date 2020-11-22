@@ -161,6 +161,7 @@ h1 {
   background-color: lightsalmon;
   -webkit-clip-path: ellipse(75% 50% at 05% 0%);
   clip-path: ellipse(75% 50% at 0% 0%);
+}
 
 @media only screen and (orientation: landscape) {
   .calendar {
@@ -178,7 +179,7 @@ h1 {
 
 table {
   width: 95%;
-  height: 100%
+  height: 100%;
 }
 
 td {
