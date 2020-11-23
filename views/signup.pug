@@ -1,0 +1,24 @@
+extends layout
+
+block append scripts
+  script(src='scripts/indexscript.js')
+
+block content
+    form(action='/home' method='POST')
+      .signin
+        label First Name:
+          input(type='text' name='f_name' class='signintext')
+        label Last Name:
+          input(type='text' name='l_name' class='signintext')
+        label Username: 
+          input(type='text' name='username' class='signintext')
+        label Password: 
+          input(type='password' name='password' class='signintext')
+        label Confirm Password:
+          input(type='password' name='confirm' class='signintext')
+        label Email:
+          input(type='text' name='email', class='signintext')
+        .signinButton
+          input(type='submit' name='signup' value='Sign Up')
+        .err
+          p #{err}
