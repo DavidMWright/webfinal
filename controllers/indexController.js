@@ -14,16 +14,21 @@ exports.home_page = function(req, res, next) {
                 res.redirect('/');
             }
             else {
-                qUsers.forEach(function(user){
-                    if(user.password == req.body.password) {
-                        res.render('home', { title: 'WeatherMood | Home'});
-                    }
-                    else {
-                        console.log(user.password)
-                        let err = encodeURIComponent('Invalid Credentials');
-                        res.redirect('/?err=' + err);                    
-                    }
-                });
+                if(qUsers[0]) {
+                    qUsers.forEach(function(user){
+                        if(user.password == req.body.password) {
+                            res.render('home', { title: 'WeatherMood | Home'});
+                        }
+                        else {
+                            let err = encodeURIComponent('Invalid Credentials');
+                            res.redirect('/?err=' + err);                    
+                        }
+                    });
+                }
+                else {
+                    let err = encodeURIComponent('Invalid Credentials');
+                    res.redirect('/?err=' + err);      
+                }
             }
         });
     }
