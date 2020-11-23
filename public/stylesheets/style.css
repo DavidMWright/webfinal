@@ -3,6 +3,7 @@ body {
   background-image: linear-gradient(grey, lightgrey);
   background-attachment: fixed;
   margin: 0;
+  overflow-x: hidden;
 }
 
 a {
@@ -13,12 +14,25 @@ h1 {
   margin: 0;
 }
 
+.header {
+  height: 25vh;
+  display: inline-flex;
+  width: 100vw;
+}
+
+@media only screen and (orientation: portrait) {
+  .header {
+    height: 15vh;
+  }
+}
+
 @media only screen and (orientation: portrait) {
   .headerCurve {
     clip-path: url(#headercurve);
     background-color: #00B7FF;
     height: 15vh;
     padding: 25px;
+    width: 100vw;
   }
 }
 
@@ -27,7 +41,8 @@ h1 {
     clip-path: url(#headercurve);
     background-color: #00B7FF;
     height: 25vh;
-    padding: 25px;
+    padding: 35px;
+    width: 100vw;
   }
 }
 
@@ -37,6 +52,40 @@ h1 {
 
 .headerCurve > h2 {
   margin: 20px 0px;
+}
+
+.userCircle {
+  background-color: lightgreen;
+  clip-path: circle(50px);
+  align-self: center;
+}
+
+.circleContainer {
+  display: flex;
+  flex-direction: column;
+  margin-left: 80vw;
+  margin-top: 10vh;
+  position: absolute;
+  z-index: 1;
+  width: 150px;
+}
+
+@media only screen and (orientation: portrait) {
+  .circleContainer {
+    margin-top: 7vh;
+    }
+  }
+
+.dropdown {
+  display: none;
+  width: 140px;
+  background-color: white;
+  padding: 5px;
+  margin: 0px;
+}
+
+.dropdown:hover {
+  background-color: lightgrey;
 }
 
 .contentContainer {

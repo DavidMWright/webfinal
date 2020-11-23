@@ -1,7 +1,3 @@
-window.onload = function() {
-  showcalendar();
-}
-
 function showcalendar() {
   const TODAY = new Date();
   const MONTH = TODAY.getMonth();
