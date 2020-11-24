@@ -6,6 +6,10 @@ html
     block scripts
   body
     .headerCurve
+      #user
+        if user
+          a(id='logout' href='/') Logout
+
       h1 Weather Moods
       h2(class="currentLocation") Current Location
     .contentContainer

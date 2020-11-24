@@ -39,6 +39,12 @@ h1 {
   margin: 20px 0px;
 }
 
+#logout {
+  font-size: 20px;
+  color: black;
+  float: right;
+}
+
 .contentContainer {
   margin: 0px 10px;
 }
