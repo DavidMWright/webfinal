@@ -5,11 +5,18 @@ var index = require('../controllers/indexController');
 var router = express.Router();
 
 // GET Sign in page.
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'WeatherMood | Welcome', err: req.query.err });
-});
+router.get('/', index.sign_in_page);
 
-// POST home page
-router.post('/home', index.home_page);
+// POST to home page
+router.post('/signin', index.sign_in);
+
+// GET Sign in page
+router.get('/signup', index.sign_up_page);
+
+// POST Sign in page after sign up
+router.post('/', index.sign_up);
+
+// GET Home page
+router.get('/home', index.home);
 
 module.exports = router;

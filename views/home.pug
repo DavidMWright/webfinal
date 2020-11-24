@@ -2,8 +2,12 @@ extends layout
 
 block append scripts
   script(src='/scripts/calendar.js')
-  script(src='/scripts/weather.js')
+  script(src='/scripts/dropdown.js')
+  script(src='/scripts/homescript.js')
+
 block content
+  h2 Hello #{id}
+
   .week
     p 7 Day Forcast and Predicted Mood
     .weekContainer
