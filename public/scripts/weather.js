@@ -4,17 +4,24 @@ var unit = 'imperial';
 var weatherID = '108e39011b5fb4c189360456ae96f6d5';
 var geoID = 'pk.80af763b520862b52d842b99f130e03d';
 var city = '';
+var part = 'alerts';
+var lon = '';
+var lat = '';
+var zipCode = '';
 
-function getGeoLocation(city) { 
+function getGeoLocation(city, lat, lon, zipCode) { 
     var options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}; 
   
     function success(position) { 
         var location = position.coords; 
-        var lat = location.latitude.toString(); 
+        var localLat = location.latitude.toString(); 
         var long = location.longitude.toString(); 
-        var coordinates = [lat, long]; 
-        console.log(`Latitude: ${lat}, Longitude: ${long}`); 
-        getCity(coordinates, city); 
+        var coordinates = [localLat, long]; 
+        console.log(`Latitude: ${localLat}, Longitude: ${long}`); 
+        lon = long;
+        lat = localLat;
+        getCity(coordinates, city, lat, lon, zipCode); 
+        
         return; 
     } 
   
@@ -25,37 +32,41 @@ function getGeoLocation(city) {
     navigator.geolocation.getCurrentPosition(success, failure, options); 
 } 
 
-function getCity(coordinates, city) { 
+function getCity(coordinates, city, lat, lon, zipCode) { 
     var serverRequest = new XMLHttpRequest(); 
-    var lat = coordinates[0]; 
+    var localLat = coordinates[0]; 
     var long = coordinates[1]; 
 
     serverRequest.open('GET', `https://us1.locationiq.com/v1/reverse.php?key=${geoID}&lat=` + 
-    lat + "&lon=" + long + "&format=json", true); 
+    localLat + "&lon=" + long + "&format=json", true); 
+    console.log(serverRequest);
     serverRequest.send(); 
     serverRequest.onreadystatechange = processRequest; 
     serverRequest.addEventListener("readystatechange", processRequest, false); 
   
-    function processRequest(e) { 
+    function processRequest() { 
         if (serverRequest.readyState == 4 && serverRequest.status == 200) { 
             var serverResponse = JSON.parse(serverRequest.responseText); 
             var serverCity = serverResponse.address.city; 
-            console.log(serverCity); 
+            zipCode = serverResponse.address.postcode;
+            console.log(serverResponse.address.postcode); 
+            console.log(serverResponse); 
             city = serverCity;
-            getWeather(city);
+            getWeather(city, lat, lon);
             return; 
         } 
     } 
 } 
 
-function init(city) {
-    getGeoLocation(city);
+function init(city, lat, lon, zipCode) {
+    getGeoLocation(city, lat, lon, zipCode);
 }
 
-function getWeather(city) {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?${searchLocation}=${city}&APPID=${weatherID}&units=${unit}`).then(result => {
+function getWeather(city, lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${unit}&exclude=${part}&appid=${weatherID}`).then(result => {
         return result.json();
     }).then(result => {
+        console.log(result);
         displayInfo(result);
     })
 }
@@ -65,11 +76,13 @@ function displayInfo(serverResult) {
     let temperatureElement = document.getElementById('currentTemp');
     let cityElement = document.getElementById('cityHeader');
     let weatherIconElement = document.getElementById('documentIconElement');
-    let weatherDescriptionResult = serverResult.weather[0].description;
+    let zipCodeElement = document.getElementById('zip');
+    let weatherDescriptionResult = serverResult.current.weather[0].description;
 
-    weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.weather[0].icon + '.png';
+    weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
-    temperatureElement.innerText = Math.floor(serverResult.main.temp) + String.fromCharCode(176);
+    temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
+    //zipCodeElement.innerText = zipCode;
     console.log(serverResult);
 }
 
