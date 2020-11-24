@@ -216,6 +216,8 @@ h1 {
 
 .currentWeather > img {
   max-width: 100%;
+  width: 15em;
+  margin: auto;
 }
 
 .moods {
