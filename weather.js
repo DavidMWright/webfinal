@@ -42,6 +42,7 @@ function getCity(coordinates, city) {
             var serverCity = serverResponse.address.city; 
             console.log(serverCity); 
             city = serverCity;
+            getWeather(city);
             return; 
         } 
     } 
@@ -49,12 +50,11 @@ function getCity(coordinates, city) {
 
 function init(city) {
     getGeoLocation(city);
-    if(city) {
-        getWeather(city);
-    }
+        
+    
 }
 
-function getWeather(getCity) {
+function getWeather(city) {
     fetch(`http://api.openweathermap.org/data/2.5/weather?${searchLocation}=${city}&APPID=${weatherID}&units=${unit}`).then(result => {
         return result.json();
     }).then(result => {
@@ -63,16 +63,16 @@ function getWeather(getCity) {
 }
 
 function displayInfo(serverResult) {
-    let weatherDescriptionElement = document.getElementById('weatherDescriptionElement');
-    let temperatureElement = document.getElementById('currentTemp');
-    let cityElement = document.getElementById('cityHeader');
-    let weatherIconElement = document.getElementById('documentIconElement');
+    let weatherDescriptionElement = document.getElementsByClassName('weatherDescriptionElement');
+    let temperatureElement = document.getElementsByClassName('currentTemp');
+    let cityElement = document.getElementsByClassName('cityHeader');
+    let weatherIconElement = document.getElementsByClassName('documentIconElement');
     let weatherDescriptionResult = serverResult.weather[0].description;
 
-    weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.weather[0].icon + '.png';
+    weatherIconElement.src = `<img src='http://openweathermap.org/img/w/${serverResult.weather[0].icon}.png'`;
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
-    temperatureElement.innerText = Math.floor(serverResult.main.temp) + String.fromCharCode(176);
-    document.location.reload();
+    temperatureElement = Math.floor(serverResult.main.temp) + String.fromCharCode(176);
+    console.log(serverResult);
 }
 
 
