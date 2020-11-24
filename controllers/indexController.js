@@ -11,24 +11,22 @@ exports.sign_in = function(req, res) {
         res.redirect('/?err=' + err);
     }
     else {
-        let query = users.find({ user_name: req.body.username }); 
-        query.exec(function(err, qUsers) {
+        let query = users.findOne({ user_name: req.body.username }); 
+        query.exec(function(err, user) {
             if(err) {
                 console.log(err);
                 res.redirect('/');
             }
             else {
-                if(qUsers[0]) {
-                    qUsers.forEach(function(user){
-                        if(user.password == req.body.password) {
-                            req.session.user = user;
-                            res.redirect('/home');
-                        }
-                        else {
-                            let err = encodeURIComponent('Invalid Credentials');
-                            res.redirect('/?err=' + err);                    
-                        }
-                    });
+                if(user) {
+                    if(user.password == req.body.password) {
+                        req.session.user = user;
+                        res.redirect('/home');
+                    }
+                    else {
+                        let err = encodeURIComponent('Invalid Credentials');
+                        res.redirect('/?err=' + err);                    
+                    }
                 }
                 else {
                     let err = encodeURIComponent('Invalid Credentials');
@@ -54,14 +52,14 @@ exports.sign_up = function(req, res) {
             res.redirect('/signup?err=' + err);
         }
 
-        let query = users.find({ user_name: req.body.username });
-        query.exec(function(err, qUsers){
+        let query = users.findOne({ user_name: req.body.username });
+        query.exec(function(err, user){
             if(err) {
                 console.log(err);
                 res.redirect('/signup');
             }
             else {
-                if(qUsers[0]) {
+                if(user) {
                     let err = encodeURIComponent('Username Aleady Taken');
                     res.redirect('/signup?err=' + err);
                 }
