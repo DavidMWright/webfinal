@@ -50,8 +50,6 @@ function getCity(coordinates, city) {
 
 function init(city) {
     getGeoLocation(city);
-        
-    
 }
 
 function getWeather(city) {

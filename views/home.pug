@@ -4,6 +4,7 @@ block append scripts
   script(src='/scripts/calendar.js')
   script(src='/scripts/dropdown.js')
   script(src='/scripts/homescript.js')
+  script(src='/scripts/weather.js')
 
 block content
   h2 Hello #{id}
@@ -21,9 +22,12 @@ block content
   .current
     //TODO: make the superscript look better
     h1 45&deg<sup>F | C</sup>
+    <div id = "currentTemp"></div>
+    <div id="weatherDescriptionElement"></div>
+    <div><img id="documentIconElement"></div>
     .currentWeather
-      img(src='https://via.placeholder.com/100/666666/ffffff?text=icon')
-      p Rain
+      <div><img id="documentIconElement"></div>
+      p <div id="weatherDescriptionElement"></div>
   .moods
     .moodsModule
       h1 -30%
