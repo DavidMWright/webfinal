@@ -54,6 +54,11 @@ h1 {
   margin: 20px 0px;
 }
 
+#logout {
+  font-size: 20px;
+  color: black;
+  float: right;
+
 .userCircle {
   background-color: lightgreen;
   clip-path: circle(50px);

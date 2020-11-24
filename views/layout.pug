@@ -5,6 +5,14 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     block scripts
   body
+    .headerCurve
+      #user
+        if user
+          a(id='logout' href='/') Logout
+
+      h1 Weather Moods
+      h2(class="currentLocation") Current Location
+      
     .header
       .circleContainer
         .userCircle
@@ -15,6 +23,7 @@ html
       .headerCurve
         h1 Weather Moods
         h2(class="currentLocation") Current Location
+
     .contentContainer
       block content
     svg(width='0' height="0")
