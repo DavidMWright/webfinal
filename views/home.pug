@@ -2,7 +2,7 @@ extends layout
 
 block append scripts
   script(src='/scripts/calendar.js')
-
+  script(src='/scripts/weather.js')
 block content
   .week
     p 7 Day Forcast and Predicted Mood
@@ -16,7 +16,7 @@ block content
             h2 -40%
   .current
     //TODO: make the superscript look better
-    h1 45&deg<sup>F | C</sup>
+    h1 <div id = "temperature"></div>
     .currentWeather
       img(src='https://via.placeholder.com/100/666666/ffffff?text=icon')
       p Rain
