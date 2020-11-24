@@ -4,7 +4,7 @@ block append scripts
   script(src='scripts/indexscript.js')
 
 block content
-    form(action='/home' method='POST')
+    form(action='/' method='POST')
       .signin
         label First Name:
           input(type='text' name='f_name' class='signintext')
@@ -19,6 +19,6 @@ block content
         label Email:
           input(type='text' name='email', class='signintext')
         .signinButton
-          input(type='submit' name='signup' value='Sign Up')
+          input(type='submit' value='Sign Up')
         .err
           p #{err}
