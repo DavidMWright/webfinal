@@ -51,6 +51,10 @@ exports.sign_up = function(req, res) {
             let err = encodeURIComponent("Passsword Dont't Match");
             res.redirect('/signup?err=' + err);
         }
+        if(String(req.body.email).includes('@')) {
+            let err = encodeURIComponent('Please Enter Valid Email');
+            res.redirect('/signup?err=' + err);
+        }
 
         let query = users.findOne({ user_name: req.body.username });
         query.exec(function(err, user){
@@ -81,6 +85,7 @@ exports.home = function(req, res) {
         res.render('home', { title: 'WeatherMood | Home', user: req.session.user });
     }
     else {
-        res.redirect('/');
+        let err = encodeURIComponent('Session Timed Out');
+        res.redirect('/?err=' + err);
     }
 }

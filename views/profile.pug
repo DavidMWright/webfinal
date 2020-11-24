@@ -1,5 +1,17 @@
 extends layout
 
+
+block append scripts
+    script(src='/scripts/dropdown.js')
+    script(src='/scripts/homescript.js')
+
 block content
-    h1= title
-    p User: #{user.first_name} #{user.last_name}
+    h3 Profile Information
+
+    ul
+        li Name: #{user.first_name} #{user.last_name}
+        li Username: #{user.user_name}
+        li Email: #{user.email}
+
+
+    a(href="/users/edit") Edit Profile
