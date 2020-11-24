@@ -12,4 +12,8 @@ router.get('/', function(req, res, next) {
 // POST home page
 router.post('/home', index.home_page);
 
+router.get('/input', function(req, res, next) {
+  res.render('input', { title: 'WeatherMood | Input your mood', err: req.query.err })
+})
+
 module.exports = router;
