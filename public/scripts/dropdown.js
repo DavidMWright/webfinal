@@ -1,15 +1,24 @@
-function menuFunction() {
-  document.getElementById("dropdown").classList.toggle("show");
+let menuVisible = false;
+
+function circleInit() {
+  let circle = document.getElementsByClassName("userCircle")[0];
+  circle.addEventListener("click", showDropdown);
 }
-window.onclick = function(event) {
-  if (!event.target.matches('.user')) {
-    var dropdowns = document.getElementsByClassName("dropdownItems");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
+
+function showDropdown() {
+  let dropdowns = document.getElementsByClassName("dropdown");
+  if (menuVisible === false) {
+    for (let i = 0; i < dropdowns.length; i++) {
+      let item = dropdowns[i];
+      item.style.display="inline";
     }
+    menuVisible = true;
+  }
+  else {
+    for (let i = 0; i < dropdowns.length; i++) {
+      let item = dropdowns[i];
+      item.style.display="none";
+    }
+    menuVisible = false;
   }
 }
