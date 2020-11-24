@@ -5,22 +5,20 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     block scripts
   body
-    .headerCurve
+    .header
       #user
         if user
-          a(id='logout' href='/') Logout
+          .circleContainer
+            .userCircle
+              img(src="https://via.placeholder.com/110/666666/ffffff?text=icon")
+            p(class="dropdown") hello
+            p(class="dropdown") test 1
+            p(class="dropdown") test 2
 
-      h1 Weather Moods
-      h2(class="currentLocation") Current Location
-      
-    .header
-      .circleContainer
-        .userCircle
-          img(src="https://via.placeholder.com/110/666666/ffffff?text=icon")
-        p(class="dropdown") hello
-        p(class="dropdown") test 1
-        p(class="dropdown") test 2
       .headerCurve
+        #user
+          if user
+            a(id='logout' href='/') Logout
         h1 Weather Moods
         h2(class="currentLocation") Current Location
 
