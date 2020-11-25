@@ -113,18 +113,22 @@ exports.user_edit = function(req, res) {
                 });
             }
         }
+        
 
         let query = User.findOne({ _id: req.session.user._id }); 
         query.exec(function(err, user) {
             if(err) {
                 console.log(err);
+                res.redirect('/');
             }
             else {
-                req.session.user = null;
                 req.session.user = user;
-                res.render('profile', { title: 'Weather Moods | Profile', user: req.session.user })
+                req.session.save(function(err){});
             }
         });
+
+
+        res.render('profile', { title: 'Weather Moods | Profile', user: req.session.user })
     }
     else
     {
