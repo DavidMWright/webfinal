@@ -57,6 +57,10 @@ exports.sign_up = function(req, res) {
             let err = encodeURIComponent("Passsword Dont't Match");
             res.redirect('/signup?err=' + err);
         }
+        if(!/\d/.test(req.body.password) || /^\d+$/.test(req.body.password)) {
+            let err = encodeURIComponent('Passsword Must contain letters and numbers');
+            res.redirect('/signup?err=' + err);
+        }
         if(!String(req.body.email).includes('@')) {
             let err = encodeURIComponent('Please Enter Valid Email');
             res.redirect('/signup?err=' + err);

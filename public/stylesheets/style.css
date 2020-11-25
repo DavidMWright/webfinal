@@ -60,6 +60,14 @@ h1 {
   float: right;
 }
 
+.back {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .userCircle {
   background-color: lightgreen;
   clip-path: circle(50px);
