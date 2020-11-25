@@ -76,7 +76,7 @@ function displayInfo(serverResult) {
 
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
-    temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
+    temperatureElement.innerHTML = Math.floor(serverResult.current.temp) + "&deg";
     console.log(serverResult);
 }
 
