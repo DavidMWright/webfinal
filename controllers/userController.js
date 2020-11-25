@@ -19,7 +19,7 @@ exports.user_edit_page = function(req, res) {
     else
     {
         let err = encodeURIComponent('Session Timed Out');
-        res.redirect('../?err=' + err);
+        res.redirect('/?err=' + err);
     }
 }
 
@@ -55,7 +55,7 @@ exports.user_edit = function(req, res) {
         }
         if(req.body.password && req.body.confirm) {
             if(req.body.password == req.body.confirm) {
-                if(req.body.password.length >= 8) {
+                if(req.body.password.length >= 8 && /\d/.test(req.body.password)) {
                     User.findOne({_id: req.session.user._id}, function(err, result) {
                         result.password = req.body.password;
 
@@ -66,8 +66,13 @@ exports.user_edit = function(req, res) {
                         });
                     });
                 }
-                else {
+                else if (req.body.password.length >= 8){
                     let err = encodeURIComponent('Password < 8 characters');
+                    res.redirect('/edit?err=' + err);
+                }
+                else
+                {
+                    let err = encodeURIComponent('Passsword Must contain letters and numbers');
                     res.redirect('/edit?err=' + err);
                 }
             }
@@ -127,6 +132,6 @@ exports.user_edit = function(req, res) {
     else
     {
         let err = encodeURIComponent('Session Timed Out');
-        res.redirect('../?err=' + err);
+        res.redirect('/?err=' + err);
     }
 }
