@@ -1,17 +1,22 @@
 extends layout
 
-
 block append scripts
     script(src='/scripts/dropdown.js')
     script(src='/scripts/homescript.js')
-
+block append styles
+    link(rel='stylesheet', href='/stylesheets/profile.css')
 block content
-    h3 Profile Information
+    .content
+        .userInfo
+            h3 Profile Information
 
-    ul
-        li Name: #{user.first_name} #{user.last_name}
-        li Username: #{user.user_name}
-        li Email: #{user.email}
-
-
-    a(href="/users/edit") Edit Profile
+            ul
+                li Name: #{user.first_name} #{user.last_name}
+                li Username: #{user.user_name}
+                li Email: #{user.email}
+        .userIcon
+            img(src="https://via.placeholder.com/110/666666/ffffff?text=icon")
+            p Change Image
+        
+    
+    button(href="/users/edit") Edit Profile
