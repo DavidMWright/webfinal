@@ -44,6 +44,8 @@ exports.sign_in = function(req, res) {
 Validates and sendsd data from sign up page to data base and redirects to sign in
 */
 exports.sign_up = function(req, res) {
+    let signup = true;
+
     if(!req.body.username || !req.body.password || !req.body.confirm || !req.body.email || !req.body.f_name || !req.body.l_name) {
         let err = encodeURIComponent('Please Fill Out All Fields');
         res.redirect('/signup?err=' + err);
@@ -56,33 +58,38 @@ exports.sign_up = function(req, res) {
         if(req.body.password != req.body.confirm) {
             let err = encodeURIComponent("Passsword Dont't Match");
             res.redirect('/signup?err=' + err);
+            signup = false;
         }
         if(!/\d/.test(req.body.password) || /^\d+$/.test(req.body.password)) {
             let err = encodeURIComponent('Passsword Must contain letters and numbers');
             res.redirect('/signup?err=' + err);
+            signup = false;
         }
         if(!String(req.body.email).includes('@')) {
             let err = encodeURIComponent('Please Enter Valid Email');
             res.redirect('/signup?err=' + err);
+            signup = false;
         }
 
-        let query = users.findOne({ user_name: req.body.username });
-        query.exec(function(err, user){
-            if(err) {
-                console.log(err);
-                res.redirect('/signup');
-            }
-            else {
-                if(user) {
-                    let err = encodeURIComponent('Username Aleady Taken');
-                    res.redirect('/signup?err=' + err);
+        if (signup) {
+            let query = users.findOne({ user_name: req.body.username });
+            query.exec(function(err, user){
+                if(err) {
+                    console.log(err);
+                    res.redirect('/signup');
                 }
                 else {
-                    users.create({ user_name: req.body.username, password: req.body.password, email: req.body.email, first_name: req.body.f_name, last_name: req.body.l_name });
-                    res.redirect('/');
+                    if(user) {
+                        let err = encodeURIComponent('Username Aleady Taken');
+                        res.redirect('/signup?err=' + err);
+                    }
+                    else {
+                        users.create({ user_name: req.body.username, password: req.body.password, email: req.body.email, first_name: req.body.f_name, last_name: req.body.l_name });
+                        res.redirect('/');
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 }
 
