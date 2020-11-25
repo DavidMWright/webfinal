@@ -3,7 +3,7 @@ var User = require('../models/userModel');
 // Display User details
 exports.user_profile = function(req, res) {
     if(req.session.user) {
-        res.render('profile', { user: req.session.user });
+        res.render('profile', { title: 'Weather Moods | Profile', user: req.session.user });
     }
     else
     {
@@ -14,7 +14,7 @@ exports.user_profile = function(req, res) {
 
 exports.user_edit_page = function(req, res) {
     if(req.session.user) {
-        res.render('edit', { user: req.session.user });
+        res.render('edit', { title: 'Weather Moods | Edit Profile', user: req.session.user });
     }
     else
     {
@@ -24,9 +24,7 @@ exports.user_edit_page = function(req, res) {
 }
 
 exports.user_edit = function(req, res) {
-    if(req.session.user) {        
-        userDoc = User.findOne({_id: req.session.user._id});
-        
+    if(req.session.user) {                
         if(req.body.username) {
             let query = User.findOne({ user_name: req.body.username });
             query.exec(function(err, user) {
@@ -40,14 +38,38 @@ exports.user_edit = function(req, res) {
                         res.redirect('/edit?err=' + err);
                     }
                     else {
-                        User.update({ _id: req.body._id }, { user_name: req.body.username });
+                        User.findOne({_id: req.session.user._id}, function(err, result) {
+                            result.user_name = req.body.username;
+                            req.session.user.user_name = req.body.username;
+                            req.session.save(function(err){});
+
+                            result.save(function(err){
+                                if(err){
+                                    console.log(err);
+                                }
+                            });
+                        });
                     }
                 }
             });
         }
         if(req.body.password && req.body.confirm) {
             if(req.body.password == req.body.confirm) {
-                userDoc.password = req.body.password;
+                if(req.body.password.length >= 8) {
+                    User.findOne({_id: req.session.user._id}, function(err, result) {
+                        result.password = req.body.password;
+
+                        result.save(function(err){
+                            if(err){
+                                console.log(err);
+                            }
+                        });
+                    });
+                }
+                else {
+                    let err = encodeURIComponent('Password < 8 characters');
+                    res.redirect('/edit?err=' + err);
+                }
             }
             else {
                 let err = encodeURIComponent('Passwords do not match');
@@ -55,24 +77,52 @@ exports.user_edit = function(req, res) {
             }
         }
         if(req.body.f_name) {
-            userDoc.first_name = req.body.f_name;
+            User.findOne({_id: req.session.user._id}, function(err, result) {
+                result.first_name = req.body.f_name;
+                req.session.user.first_name = req.body.f_name;
+                req.session.save(function(err){});
+
+                result.save(function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            });
         }
         if(req.body.l_name) {
-            userDoc.last_name = req.body.l_name;
+            User.findOne({_id: req.session.user._id}, function(err, result) {
+                result.last_name = req.body.l_name;
+                req.session.user.last_name = req.body.l_name;
+                req.session.save(function(err){});
+
+                result.save(function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            });
         }
         if(req.body.email) {
-            if(String(req.body.email).includes('@')) {
+            if(!String(req.body.email).includes('@')) {
                 let err = encodeURIComponent('Please Enter Valid Email');
-                res.redirect('/signup?err=' + err);
+                res.redirect('/edit?err=' + err);
             }
             else {
-                userDoc.email = req.body.email;
+                User.findOne({_id: req.session.user._id}, function(err, result) {
+                    result.email = req.body.email;
+                    req.session.user.email = req.body.email;
+                    req.session.save(function(err){});
+
+                    result.save(function(err){
+                        if(err){
+                            console.log(err);
+                        }
+                    });
+                });
             }
         }
 
-        //userDoc.save();
-
-        res.render('edit', { user: req.session.user });
+        res.redirect('/home');
     }
     else
     {

@@ -16,7 +16,7 @@ app.use(session({
   secret: 'thisIsASecret',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 300000 }
+  cookie: { maxAge: 300000, secure: false }
 }));
 
 //Set up mongoose connection
