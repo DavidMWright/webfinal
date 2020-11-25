@@ -18,5 +18,5 @@ block content
             img(src="https://via.placeholder.com/110/666666/ffffff?text=icon")
             p Change Image
         
-    
-    button(href="/users/edit") Edit Profile
+    form(action='/users/edit' method='GET')
+        button(type='submit') Edit Profile
