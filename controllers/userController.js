@@ -40,6 +40,8 @@ exports.user_edit = function(req, res) {
                     else {
                         User.findOne({_id: req.session.user._id}, function(err, result) {
                             result.user_name = req.body.username;
+                            req.session.user.user_name = req.body.username;
+                            req.session.save(function(err){});
 
                             result.save(function(err){
                                 if(err){
@@ -77,6 +79,8 @@ exports.user_edit = function(req, res) {
         if(req.body.f_name) {
             User.findOne({_id: req.session.user._id}, function(err, result) {
                 result.first_name = req.body.f_name;
+                req.session.user.first_name = req.body.f_name;
+                req.session.save(function(err){});
 
                 result.save(function(err){
                     if(err){
@@ -88,6 +92,8 @@ exports.user_edit = function(req, res) {
         if(req.body.l_name) {
             User.findOne({_id: req.session.user._id}, function(err, result) {
                 result.last_name = req.body.l_name;
+                req.session.user.last_name = req.body.l_name;
+                req.session.save(function(err){});
 
                 result.save(function(err){
                     if(err){
@@ -104,6 +110,8 @@ exports.user_edit = function(req, res) {
             else {
                 User.findOne({_id: req.session.user._id}, function(err, result) {
                     result.email = req.body.email;
+                    req.session.user.email = req.body.email;
+                    req.session.save(function(err){});
 
                     result.save(function(err){
                         if(err){
@@ -113,22 +121,8 @@ exports.user_edit = function(req, res) {
                 });
             }
         }
-        
 
-        let query = User.findOne({ _id: req.session.user._id }); 
-        query.exec(function(err, user) {
-            if(err) {
-                console.log(err);
-                res.redirect('/');
-            }
-            else {
-                req.session.user = user;
-                req.session.save(function(err){});
-            }
-        });
-
-
-        res.render('profile', { title: 'Weather Moods | Profile', user: req.session.user })
+        res.redirect('/home');
     }
     else
     {
