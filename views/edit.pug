@@ -10,24 +10,24 @@ block append styles
 
 block content
   form(action='/users/edit' method='POST')
-    .first
-      label First Name:
-        input(type='text' name='f_name' class='signintext' placeholder=user.first_name) 
-    .last
-      label Last Name:
-        input(type='text' name='l_name' class='signintext' placeholder=user.last_name)
-    .username
-      label Username: 
-        input(type='text' name='username' class='signintext' placeholder=user.user_name)
-    .password
-      label Password: 
-        input(type='password' name='password' class='signintext')
-    .confirm
-      label Confirm Password:
-        input(type='password' name='confirm' class='signintext')
-    .email 
-      label Email:
-        input(type='text' name='email', class='signintext' placeholder=user.email)
+    p
+      label(for='f_name') First Name:
+      input(type='text' id='f_name' class='signintext' placeholder=user.first_name) 
+    p
+      label(for='l_name') Last Name:
+      input(type='text' id='l_name' class='signintext' placeholder=user.last_name)
+    p
+      label(for='username') Username: 
+      input(type='text' id='username' class='signintext' placeholder=user.user_name)
+    p
+      label(for='password') Password: 
+      input(type='password' id='password' class='signintext')
+    p
+      label(for='confirm') Confirm Password:
+      input(type='password' id='confirm' class='signintext')
+    p
+      label(for='email') Email:
+      input(type='text' id='email', class='signintext' placeholder=user.email)
     .signinButton
       input(type='submit' value='Save Changes')
 
