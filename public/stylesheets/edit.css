@@ -1,0 +1,11 @@
+form label {
+  font-size: 26px;
+  
+}
+form input {
+  display: inline-block;
+  margin-left: 50px;
+}
+.first, .last, .username, .password, .confirm, .email {
+  padding: 10px 10px;
+}
