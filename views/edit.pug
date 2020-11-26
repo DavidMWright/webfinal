@@ -5,20 +5,29 @@ block append scripts
   script(src='/scripts/dropdown.js')
   script(src='/scripts/homescript.js')
 
+block append styles
+  link(rel='stylesheet', href='/stylesheets/edit.css')
+
 block content
   form(action='/users/edit' method='POST')
-    label First Name:
-      input(type='text' name='f_name' class='signintext' placeholder=user.first_name) 
-    label Last Name:
-      input(type='text' name='l_name' class='signintext' placeholder=user.last_name)
-    label Username: 
-      input(type='text' name='username' class='signintext' placeholder=user.user_name)
-    label Password: 
-      input(type='password' name='password' class='signintext')
-    label Confirm Password:
-      input(type='password' name='confirm' class='signintext')
-    label Email:
-      input(type='text' name='email', class='signintext' placeholder=user.email)
+    .first
+      label First Name:
+        input(type='text' name='f_name' class='signintext' placeholder=user.first_name) 
+    .last
+      label Last Name:
+        input(type='text' name='l_name' class='signintext' placeholder=user.last_name)
+    .username
+      label Username: 
+        input(type='text' name='username' class='signintext' placeholder=user.user_name)
+    .password
+      label Password: 
+        input(type='password' name='password' class='signintext')
+    .confirm
+      label Confirm Password:
+        input(type='password' name='confirm' class='signintext')
+    .email 
+      label Email:
+        input(type='text' name='email', class='signintext' placeholder=user.email)
     .signinButton
       input(type='submit' value='Save Changes')
 
