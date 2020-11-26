@@ -3,12 +3,11 @@ var router = express.Router();
 
 var user_controller = require('../controllers/userController');
 
-// Post Request for User Page
-router.post('/:id', user_controller.user_detail);
-
 // Only set up for testing 
-router.get('/', function(req, res, next) {
-    res.render('profile', { user: {first_name: 'David', last_name: 'Wright'} });
-});
+router.get('/profile', user_controller.user_profile);
+
+router.get('/edit', user_controller.user_edit_page);
+
+router.post('/edit', user_controller.user_edit);
 
 module.exports = router;

@@ -15,9 +15,9 @@ var app = express();
 app.use(session({
   secret: 'thisIsASecret',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { maxAge: 300000, secure: false }
 }));
-
 
 //Set up mongoose connection
 var mongoose = require('mongoose');

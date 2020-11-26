@@ -19,4 +19,8 @@ router.post('/', index.sign_up);
 // GET Home page
 router.get('/home', index.home);
 
+router.get('/input', function(req, res, next) {
+  res.render('input', { title: 'WeatherMood | Input your mood', err: req.query.err })
+})
+
 module.exports = router;

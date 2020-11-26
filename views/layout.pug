@@ -4,6 +4,7 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     block scripts
+    block styles
   body
     .header
       #user
@@ -11,14 +12,11 @@ html
           .circleContainer
             .userCircle
               img(src="https://via.placeholder.com/110/666666/ffffff?text=icon")
-            p(class="dropdown") hello
-            p(class="dropdown") test 1
-            p(class="dropdown") test 2
+            a(href="/home" class="dropdown") Home
+            a(href="/users/profile" class="dropdown") Profile
+            a(href="/" class="dropdown") Logout
 
       .headerCurve
-        #user
-          if user
-            a(id='logout' href='/') Logout
         h1 Weather Moods
         h2(class="currentLocation") Current Location
 

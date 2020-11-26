@@ -1,0 +1,45 @@
+.content{
+  font-size: 26px;
+  padding-left: 50px;
+  padding-bottom: 40px;
+  display: inline-block;
+  height: 300px;
+}
+.userInfo {
+  display: block;
+  float: left;
+}
+.userIcon {
+  display: block;
+  float: right;
+  padding-left: 200px;
+  padding-top: 40px;
+  margin: auto auto;
+  text-align: center;
+}
+.userIcon img {
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+}
+
+h3 {
+  font-size: 40px;
+}
+ul {
+  margin: 20px auto;
+}
+li {
+  list-style-type: none;
+  padding: 10px;
+}
+button {
+  font-size: 30px;
+  border-width: 0px;
+  border-radius: 15%;
+  background-color: #00B7FF;
+  color: white;
+  padding: 10px 20px;
+  margin-left: 50px;
+}
+
