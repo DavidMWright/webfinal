@@ -67,20 +67,20 @@ function getWeather(city, lat, lon) {
         return result.json();
     }).then(result => {
         console.log(result);
-        displayInfo(result);
+        displayInfo(result, city);
     })
 }
 
-function displayInfo(serverResult) {
+function displayInfo(serverResult, city) {
     let weatherDescriptionElement = document.getElementById('weatherDescriptionElement');
     let temperatureElement = document.getElementById('currentTemp');
-
+    
 
     //SET CURRENT LOCATION
     let cityElement = document.getElementById('currentLocation');
-
-
-
+    cityElement.innerText = city.charAt(0).toUpperCase() + city.slice(1);
+    let dailyIconElement = document.getElementById(id="dailyIconElement")
+    let dailyTemp = document.getElementById(id="dailyTemp")
     let weatherIconElement = document.getElementById('documentIconElement');
     let zipCodeElement = document.getElementById('zip');
     let weatherDescriptionResult = serverResult.current.weather[0].description;
@@ -88,11 +88,8 @@ function displayInfo(serverResult) {
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
     temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
-
-    //SETS CITY
-    console.log(city);
-    cityElement.innerText = city;
-
+    dailyIconElement = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
+    dailyTemp = serverResult.current.weather[0].description;
 
     //zipCodeElement.innerText = zipCode;
     console.log(serverResult);
