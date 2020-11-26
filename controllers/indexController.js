@@ -24,6 +24,9 @@ exports.sign_in = function(req, res) {
                 if(user) {
                     if(user.password == req.body.password) {
                         req.session.user = user;
+                        
+                        let query = 
+
                         res.redirect('/home');
                     }
                     else {
