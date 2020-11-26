@@ -106,9 +106,12 @@ Renders main home page. If invalid session, redirects to login
 exports.home = function(req, res) {
     if(req.session.user) {
         // Need to set up getting and sending weather data from database to home page
-
+        
 
         res.render('home', { title: 'WeatherMood | Home', user: req.session.user });
+
+        //HUNG
+        res.render('days', { title: 'Books', forecast: '' });
     }
     else {
         let err = encodeURIComponent('Session Timed Out');

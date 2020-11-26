@@ -67,31 +67,42 @@ function getWeather(city, lat, lon) {
         return result.json();
     }).then(result => {
         console.log(result);
-        displayInfo(result);
+        displayInfo(result, city);
     })
 }
 
-function displayInfo(serverResult) {
+function displayInfo(serverResult, city) {
     let weatherDescriptionElement = document.getElementById('weatherDescriptionElement');
     let temperatureElement = document.getElementById('currentTemp');
-
+    
 
     //SET CURRENT LOCATION
     let cityElement = document.getElementById('currentLocation');
-
-
-
+    cityElement.innerText = city.charAt(0).toUpperCase() + city.slice(1);
+    
+    
     let weatherIconElement = document.getElementById('documentIconElement');
     let zipCodeElement = document.getElementById('zip');
     let weatherDescriptionResult = serverResult.current.weather[0].description;
+    
 
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
     temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
+    
 
-    //SETS CITY
-    console.log(city);
-    cityElement.innerText = city;
+    for(let i = 0; i < 7; i++)
+    {
+        let dailyTemp = document.getElementById(id="dailyTemp")
+        let dailyTempResults = serverResult.daily[i].temp.day;
+        let dailyIconElement = document.getElementById(id="dailyIconElement")
+        let dailyDescription = document.getElementById('dailyDescription');
+        let dailyDescriptionResult = serverResult.daily[i].weather[0].description;
+
+        dailyIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
+        dailyTemp.innerText = Math.floor(dailyTempResults) + String.fromCharCode(176);
+        dailyDescription.innerText = dailyDescriptionResult.charAt(0).toUpperCase() + dailyDescriptionResult.slice(1);
+    }
 
 
     //zipCodeElement.innerText = zipCode;
