@@ -74,7 +74,7 @@ function getWeather(city, lat, lon) {
 function displayInfo(serverResult, city) {
     let weatherDescriptionElement = document.getElementById('weatherDescriptionElement');
     let temperatureElement = document.getElementById('currentTemp');
-    
+    let dailyElement = document.getElementsByClassName('weekItem')
 
     //SET CURRENT LOCATION
     let cityElement = document.getElementById('currentLocation');
@@ -90,18 +90,23 @@ function displayInfo(serverResult, city) {
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
     temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
     
-
+console.log(dailyElement);
     for(let i = 0; i < 7; i++)
     {
-        let dailyTemp = document.getElementById(id="dailyTemp")
-        let dailyTempResults = serverResult.daily[i].temp.day;
-        let dailyIconElement = document.getElementById(id="dailyIconElement")
-        let dailyDescription = document.getElementById('dailyDescription');
+        let dailyTemp = document.getElementById("dailyTemp")
+        let dailyTempResults = dailyElement.children[1].daily[2].temp.day;
+        let dailyIconElement = document.getElementById("dailyIconElement")
+        let dailyDescription = document.getElementById('dailyDescription')
         let dailyDescriptionResult = serverResult.daily[i].weather[0].description;
+        let index = 0;
+        //dailyTemp = dailyTempResults;
 
+        
+        
         dailyIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
         dailyTemp.innerText = Math.floor(dailyTempResults) + String.fromCharCode(176);
         dailyDescription.innerText = dailyDescriptionResult.charAt(0).toUpperCase() + dailyDescriptionResult.slice(1);
+        console.log(dailyTemp);
     }
 
 
