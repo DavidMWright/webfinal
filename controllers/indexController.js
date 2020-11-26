@@ -132,6 +132,9 @@ exports.home = function(req, res) {
     }
 }
 
+/*
+Renders user input page
+*/
 exports.input_page = function(req, res) {
     if(req.session.user) {
         res.render('input', { title: 'WeatherMood | Input your mood', user: req.session.user });
@@ -142,6 +145,9 @@ exports.input_page = function(req, res) {
     }
 }
 
+/*
+Inserts User input into database and redirects to home
+*/
 exports.input = function(req, res) {
     if(req.session.user) {
         let date = new Date();
