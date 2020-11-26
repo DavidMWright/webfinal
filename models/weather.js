@@ -5,7 +5,6 @@ var Schema = mongoose.Schema;
 var WeatherSchema = new Schema(
   {
     tempurature: {type: Number, required: true},
-    date: {type: Date, required: true},
     weather_type: {type: String, required: true}
   }
 );

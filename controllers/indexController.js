@@ -1,4 +1,5 @@
 var users = require('../models/userModel');
+var Mood = require('../models/mood');
 
 exports.sign_in_page = function(req, res) {
     req.session.destroy();
@@ -24,10 +25,22 @@ exports.sign_in = function(req, res) {
                 if(user) {
                     if(user.password == req.body.password) {
                         req.session.user = user;
-                        
-                        let query = 
 
-                        res.redirect('/home');
+                        let date = new Date();
+                        let query = Mood.findOne({ date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(), _user: req.session.user._id });
+                        query.exec(function(err, result) {
+                            if(err) {
+                                console.log(err);
+                                res.redirect('/')
+                            }
+                            else if(result) {
+                                console.log(result);
+                                res.redirect('/home');
+                            }
+                            else {
+                                res.redirect('/input');
+                            }
+                        });
                     }
                     else {
                         let err = encodeURIComponent('Invalid Credentials');
@@ -112,12 +125,49 @@ exports.home = function(req, res) {
         
 
         res.render('home', { title: 'WeatherMood | Home', user: req.session.user });
-
-        //HUNG
-        res.render('days', { title: 'Books', forecast: '' });
     }
     else {
         let err = encodeURIComponent('Session Timed Out');
         res.redirect('/?err=' + err);
     }
+}
+
+/*
+Renders user input page
+*/
+exports.input_page = function(req, res) {
+    if(req.session.user) {
+        res.render('input', { title: 'WeatherMood | Input your mood', user: req.session.user });
+    }
+    else {
+        let err = encodeURIComponent('Session Timed Out');
+        res.redirect('/?err=' + err);
+    }
+}
+
+/*
+Inserts User input into database and redirects to home
+*/
+exports.input = function(req, res) {
+    if(req.session.user) {
+        let date = new Date();
+        let insert = { 
+            mood_percent: req.body.mood, 
+            date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(),
+            _user: req.session.user._id
+        };
+
+        Mood.create(insert, function(err, result) {
+            if(err){
+                console.log(err);
+            }
+        });
+
+        res.redirect('/home')
+    }
+    else {
+        let err = encodeURIComponent('Session Timed Out');
+        res.redirect('/?err=' + err);
+    }
+
 }

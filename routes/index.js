@@ -19,8 +19,10 @@ router.post('/', index.sign_up);
 // GET Home page
 router.get('/home', index.home);
 
-router.get('/input', function(req, res, next) {
-  res.render('input', { title: 'WeatherMood | Input your mood', err: req.query.err })
-})
+// POST Home page
+router.post('/input', index.input);
+
+// Get input page
+router.get('/input', index.input_page);
 
 module.exports = router;

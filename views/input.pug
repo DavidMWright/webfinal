@@ -14,11 +14,12 @@ block content
         p Rain
   .sliderContainer
     h2 How are we feeling today?
-    input(type='range' min='-100' max='100' value='0' class='slider' id='inputSlider')
-    .labels
-      p -100%
-      p 100%
-    h1(class="output") 0
-    input(type="submit" class="sliderSubmit")
+    form(action="/input" method='POST')
+      input(type='range' min='-100' max='100' value='0' class='slider' id='inputSlider' name='mood')
+      .labels
+        p -100%
+        p 100%
+      h1(class="output") 0
+      input(type="submit" class="sliderSubmit")
 
   script(src='scripts/slider.js')
