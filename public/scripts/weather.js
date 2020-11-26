@@ -9,6 +9,9 @@ var lon = '';
 var lat = '';
 var zipCode = '';
 
+
+
+
 function getGeoLocation(city, lat, lon, zipCode) { 
     var options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}; 
   
@@ -72,6 +75,7 @@ function getWeather(city, lat, lon) {
 }
 
 function displayInfo(serverResult, city) {
+    //
     let weatherDescriptionElement = document.getElementById('weatherDescriptionElement');
     let temperatureElement = document.getElementById('currentTemp');
     let dailyElement = document.getElementsByClassName('weekItem')
@@ -79,7 +83,6 @@ function displayInfo(serverResult, city) {
     //SET CURRENT LOCATION
     let cityElement = document.getElementById('currentLocation');
     cityElement.innerText = city.charAt(0).toUpperCase() + city.slice(1);
-    
     
     let weatherIconElement = document.getElementById('documentIconElement');
     let zipCodeElement = document.getElementById('zip');
@@ -89,30 +92,33 @@ function displayInfo(serverResult, city) {
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
     temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
-    
-console.log(dailyElement);
-    for(let i = 0; i < 7; i++)
-    {
-        let dailyTemp = document.getElementById("dailyTemp")
-        let dailyTempResults = dailyElement.children[1].daily[2].temp.day;
-        let dailyIconElement = document.getElementById("dailyIconElement")
-        let dailyDescription = document.getElementById('dailyDescription')
+
+
+    //CODE FOR & DAY FORECAST###############################################################
+    const TODAY = new Date();
+
+    let div = document.getElementsByClassName("week")[0];
+    let table = "<table cellspacing=0>"
+    let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
+
+    console.log("####################");
+        for (let i = 0; i < 6; i++) {
+        let row = "<tr>";
+        console.log(serverResult.daily[i].temp.day);
+    let dailyTemp = Math.floor(serverResult.daily[i].temp.day) + String.fromCharCode(176);
         let dailyDescriptionResult = serverResult.daily[i].weather[0].description;
-        let index = 0;
-        //dailyTemp = dailyTempResults;
+        var img = document.createElement('img');
+        img.src = 'http://openweathermap.org/img/w/' + serverResult.daily[i].weather[0].icon + '.png'
+        row += `<td>${dailyTemp} ${dailyDescriptionResult} ${img}</td>`
+        row += "</tr>";
+        table += row;
+      }
 
-        
-        
-        dailyIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
-        dailyTemp.innerText = Math.floor(dailyTempResults) + String.fromCharCode(176);
-        dailyDescription.innerText = dailyDescriptionResult.charAt(0).toUpperCase() + dailyDescriptionResult.slice(1);
-        console.log(dailyTemp);
-    }
-
-
-    //zipCodeElement.innerText = zipCode;
-    console.log(serverResult);
+    div.innerHTML = table;
+    //END 7DAY FORECAST###################################################################
 }
+
+
 
 
 init();
