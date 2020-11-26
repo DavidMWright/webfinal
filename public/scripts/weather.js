@@ -74,7 +74,13 @@ function getWeather(city, lat, lon) {
 function displayInfo(serverResult) {
     let weatherDescriptionElement = document.getElementById('weatherDescriptionElement');
     let temperatureElement = document.getElementById('currentTemp');
-    let cityElement = document.getElementById('cityHeader');
+
+
+    //SET CURRENT LOCATION
+    let cityElement = document.getElementById('currentLocation');
+
+
+
     let weatherIconElement = document.getElementById('documentIconElement');
     let zipCodeElement = document.getElementById('zip');
     let weatherDescriptionResult = serverResult.current.weather[0].description;
@@ -82,6 +88,12 @@ function displayInfo(serverResult) {
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
     temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
+
+    //SETS CITY
+    console.log(city);
+    cityElement.innerText = city;
+
+
     //zipCodeElement.innerText = zipCode;
     console.log(serverResult);
 }

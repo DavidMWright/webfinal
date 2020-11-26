@@ -6,6 +6,7 @@ html
     block scripts
     block styles
   body
+
     .header
       #user
         if user
@@ -18,7 +19,8 @@ html
 
       .headerCurve
         h1 Weather Moods
-        h2(class="currentLocation") Current Location
+        //NOT SURE WHY IT DOESNT CHANGE
+        h2(id="currentLocation")
 
     .contentContainer
       block content
