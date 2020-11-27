@@ -11,14 +11,17 @@ block content
     p 7 Day Forcast and Predicted Mood
     
     .weekContainer
-      - let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
-      each day in days
-        .weekItem
-          h1= day
-          .weekItemContent
-            img(id="dailyIconElement")
-            p(id="dailyDescription")
-            h2(id="dailyTemp")
+    <div class="week">Loading...</div>
+      //- - let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
+      //- each day in days
+      //-   .weekItem
+      //-     h1(id="list")= day
+      //-     .weekItemContent
+      //-       ul
+      //-           li Name: #{user.first_name} #{user.last_name}
+      //-           li Username: #{user.user_name}
+      //-           li Email: #{user.email}
+            
   .current
     h1(id="currentTemp")
     .currentWeather

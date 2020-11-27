@@ -123,7 +123,6 @@ exports.home = function(req, res) {
     if(req.session.user) {
         // Need to set up getting and sending weather data from database to home page
         
-
         res.render('home', { title: 'WeatherMood | Home', user: req.session.user });
     }
     else {
