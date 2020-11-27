@@ -45,7 +45,6 @@ function getCity(coordinates, city, lat, lon, zipCode) {
     console.log(serverRequest);
     serverRequest.send(); 
     serverRequest.onreadystatechange = processRequest; 
-    serverRequest.addEventListener("readystatechange", processRequest, false); 
   
     function processRequest() { 
         if (serverRequest.readyState == 4 && serverRequest.status == 200) { 
@@ -53,7 +52,6 @@ function getCity(coordinates, city, lat, lon, zipCode) {
             var serverCity = serverResponse.address.city; 
             zipCode = serverResponse.address.postcode;
             console.log(serverResponse.address.postcode); 
-            console.log(serverResponse); 
             city = serverCity;
             getWeather(city, lat, lon);
             return; 
@@ -69,7 +67,6 @@ function getWeather(city, lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${unit}&exclude=${part}&appid=${weatherID}`).then(result => {
         return result.json();
     }).then(result => {
-        console.log(result);
         displayInfo(result, city);
     })
 }
@@ -93,29 +90,41 @@ function displayInfo(serverResult, city) {
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
     temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
 
-
-    //CODE FOR & DAY FORECAST###############################################################
-    const TODAY = new Date();
-
-    let div = document.getElementsByClassName("week")[0];
-    let table = "<table cellspacing=0>"
+    let div = document.getElementsByClassName('weekContainer')[0];
+    //get label order based on current day of the week
     let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
+    let orderedDays = days.slice(new Date().getDay());
+    days.length = new Date().getDay();
+    
+    orderedDays.push(...days);
+    console.log(orderedDays);
+    //create list of days
+    for (let i = 0; i < 7; i++) {
+        let day = document.createElement("div");
+        let dayHeader = document.createElement("h1");
+        let dayContent = document.createElement("div");
+        let image = document.createElement("img");
+        let description = document.createElement("p");
+        let temperature = document.createElement("h2");
 
-    console.log("####################");
-        for (let i = 0; i < 6; i++) {
-        let row = "<tr>";
-        console.log(serverResult.daily[i].temp.day);
-    let dailyTemp = Math.floor(serverResult.daily[i].temp.day) + String.fromCharCode(176);
-        let dailyDescriptionResult = serverResult.daily[i].weather[0].description;
-        var img = document.createElement('img');
-        img.src = 'http://openweathermap.org/img/w/' + serverResult.daily[i].weather[0].icon + '.png'
-        row += `<td>${dailyTemp} ${dailyDescriptionResult} ${img}</td>`
-        row += "</tr>";
-        table += row;
-      }
-
-    div.innerHTML = table;
-    //END 7DAY FORECAST###################################################################
+        day.classList.add("weekItem");
+        //add header to day element
+        dayHeader.innerHTML = orderedDays[i];
+        day.appendChild(dayHeader);
+        //add the icon and the temperature to the week item
+        dayContent.classList.add("weekItemContent");
+        //add image
+        image.src = 'http://openweathermap.org/img/w/' + serverResult.daily[i].weather[0].icon + '.png'
+        dayContent.appendChild(image);
+        //add description and temperature
+        description.innerHTML = serverResult.daily[i].weather[0].description;
+        temperature.innerHTML = Math.floor(serverResult.daily[i].temp.day) + String.fromCharCode(176);
+        dayContent.appendChild(description);
+        dayContent.appendChild(temperature);
+        
+        day.appendChild(dayContent);
+        div.appendChild(day);
+    }
 }
 
 

@@ -7,20 +7,9 @@ block append scripts
   script(src='/scripts/weather.js')
 
 block content
-  .week
-    p 7 Day Forcast and Predicted Mood
-    
-    .weekContainer
-    <div class="week">Loading...</div>
-      //- - let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
-      //- each day in days
-      //-   .weekItem
-      //-     h1(id="list")= day
-      //-     .weekItemContent
-      //-       ul
-      //-           li Name: #{user.first_name} #{user.last_name}
-      //-           li Username: #{user.user_name}
-      //-           li Email: #{user.email}
+  p 7 Day Forcast and Predicted Mood
+  
+  .weekContainer
             
   .current
     h1(id="currentTemp")
