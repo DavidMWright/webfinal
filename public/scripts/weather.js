@@ -45,7 +45,6 @@ function getCity(coordinates, city, lat, lon, zipCode) {
     console.log(serverRequest);
     serverRequest.send(); 
     serverRequest.onreadystatechange = processRequest; 
-    serverRequest.addEventListener("readystatechange", processRequest, false); 
   
     function processRequest() { 
         if (serverRequest.readyState == 4 && serverRequest.status == 200) { 
@@ -53,7 +52,6 @@ function getCity(coordinates, city, lat, lon, zipCode) {
             var serverCity = serverResponse.address.city; 
             zipCode = serverResponse.address.postcode;
             console.log(serverResponse.address.postcode); 
-            console.log(serverResponse); 
             city = serverCity;
             getWeather(city, lat, lon);
             return; 
@@ -69,7 +67,6 @@ function getWeather(city, lat, lon) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${unit}&exclude=${part}&appid=${weatherID}`).then(result => {
         return result.json();
     }).then(result => {
-        console.log(result);
         displayInfo(result, city);
     })
 }
@@ -93,12 +90,14 @@ function displayInfo(serverResult, city) {
     weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
     temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
 
-    let div = document.getElementsByClassName('weekContainer')[0]
+    let div = document.getElementsByClassName('weekContainer')[0];
     //get label order based on current day of the week
     let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
     let orderedDays = days.slice(new Date().getDay());
     days.length = new Date().getDay();
+    
     orderedDays.push(...days);
+    console.log(orderedDays);
     //create list of days
     for (let i = 0; i < 7; i++) {
         let day = document.createElement("div");
