@@ -14,9 +14,7 @@ block content
                 li Name: #{user.first_name} #{user.last_name}
                 li Username: #{user.user_name}
                 li Email: #{user.email}
-        .userIcon
-            img(src="https://via.placeholder.com/110/666666/ffffff?text=icon")
-            p Change Image
+
         
     form(action='/users/edit' method='GET')
         button(type='submit') Edit Profile
