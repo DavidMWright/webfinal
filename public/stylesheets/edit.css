@@ -1,5 +1,6 @@
 form {
   display: table;
+  margin-left: 80px;
 }
 p {
   display: table-row;
