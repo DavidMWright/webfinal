@@ -12,22 +12,22 @@ block content
   form(action='/users/edit' method='POST')
     p
       label(for='f_name') First Name:
-      input(type='text' id='f_name' class='signintext' placeholder=user.first_name) 
+      input(type='text' id='f_name' name='f_name' class='signintext' placeholder=user.first_name) 
     p
       label(for='l_name') Last Name:
-      input(type='text' id='l_name' class='signintext' placeholder=user.last_name)
+      input(type='text' id='l_name' name='l_name' class='signintext' placeholder=user.last_name)
     p
       label(for='username') Username: 
-      input(type='text' id='username' class='signintext' placeholder=user.user_name)
+      input(type='text' id='username' name='username' class='signintext' placeholder=user.user_name)
     p
       label(for='password') Password: 
-      input(type='password' id='password' class='signintext')
+      input(type='password' id='password' name='password' class='signintext')
     p
       label(for='confirm') Confirm Password:
-      input(type='password' id='confirm' class='signintext')
+      input(type='password' id='confirm' name='confirm' class='signintext')
     p
       label(for='email') Email:
-      input(type='text' id='email', class='signintext' placeholder=user.email)
+      input(type='text' id='email' name='email' class='signintext' placeholder=user.email)
     .signinButton
       input(type='submit' value='Save Changes')
 
