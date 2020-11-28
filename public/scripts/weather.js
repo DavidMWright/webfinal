@@ -1,18 +1,4 @@
-
-var searchLocation = 'q';
-var unit = 'imperial';
-var weatherID = '108e39011b5fb4c189360456ae96f6d5';
-var geoID = 'pk.80af763b520862b52d842b99f130e03d';
-var city = '';
-var part = 'alerts';
-var lon = '';
-var lat = '';
-var zipCode = '';
-
-
-
-
-function getGeoLocation(city, lat, lon, zipCode) { 
+function getGeoLocation(city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part) { 
     var options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}; 
   
     function success(position) { 
@@ -23,7 +9,7 @@ function getGeoLocation(city, lat, lon, zipCode) {
         console.log(`Latitude: ${localLat}, Longitude: ${long}`); 
         lon = long;
         lat = localLat;
-        getCity(coordinates, city, lat, lon, zipCode); 
+        getCity(coordinates, city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part); 
         
         return; 
     } 
@@ -35,7 +21,7 @@ function getGeoLocation(city, lat, lon, zipCode) {
     navigator.geolocation.getCurrentPosition(success, failure, options); 
 } 
 
-function getCity(coordinates, city, lat, lon, zipCode) { 
+function getCity(coordinates, city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part) { 
     var serverRequest = new XMLHttpRequest(); 
     var localLat = coordinates[0]; 
     var long = coordinates[1]; 
@@ -53,17 +39,26 @@ function getCity(coordinates, city, lat, lon, zipCode) {
             zipCode = serverResponse.address.postcode;
             console.log(serverResponse.address.postcode); 
             city = serverCity;
-            getWeather(city, lat, lon);
+            getWeather(city, lat, lon, unit, weatherID, part);
             return; 
         } 
     } 
 } 
 
 function init(city, lat, lon, zipCode) {
-    getGeoLocation(city, lat, lon, zipCode);
+    var searchLocation = 'q';
+var unit = 'imperial';
+var weatherID = '108e39011b5fb4c189360456ae96f6d5';
+var geoID = 'pk.80af763b520862b52d842b99f130e03d';
+var city = '';
+var part = 'alerts';
+var lon = '';
+var lat = '';
+var zipCode = '';
+    getGeoLocation(city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part);
 }
 
-function getWeather(city, lat, lon) {
+function getWeather(city, lat, lon, unit, weatherID, part) {
     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=${unit}&exclude=${part}&appid=${weatherID}`).then(result => {
         return result.json();
     }).then(result => {
@@ -126,8 +121,5 @@ function displayInfo(serverResult, city) {
         div.appendChild(day);
     }
 }
-
-
-
 
 init();
