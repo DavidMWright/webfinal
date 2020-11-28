@@ -7,7 +7,8 @@ var MoodSchema = new Schema(
     mood_percent: {type: Number, required: true},
     date: {type: Date, required: true},
     _user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    //_weather: {type: mongoose.Schema.Types.ObjectId, ref: 'Weather'}
+    //tempurature: {type: Number, required: true},
+    //weather_type: {type: String, required: true}
   }
 );
 
