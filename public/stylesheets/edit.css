@@ -1,11 +1,15 @@
-form label {
+form {
+  display: table;
+}
+p {
+  display: table-row;
+  height: 50px;
+}
+label {
   font-size: 26px;
+  display: table-cell;
   
 }
-form input {
-  display: inline-block;
-  margin-left: 50px;
-}
-.first, .last, .username, .password, .confirm, .email {
-  padding: 10px 10px;
+input {
+  display: table-cell;
 }
