@@ -16,16 +16,12 @@ block content
     .currentWeather
       img(id="documentIconElement")
       p(id="weatherDescriptionElement")
-  .moods
     .moodsModule
       h1 -30%
       p Your mood
-    .moodsModule
-      h1 -28%
-      select(name="moodgroup" id="moodgroup")
-        option(value="zip") Zip Code
   .calendarContainer
-    <div class="calendar">HELLOOO</div>
+    .calendar
+      p Loading...
     .calendarKey
       - let colors=['red', 'orange', 'yellow', 'greenyellow', 'forestgreen']
       - let label=['-61% to -100%', '-31% to -60%', '-30% to 30%', '31% to 60%', '61% to 100%']
