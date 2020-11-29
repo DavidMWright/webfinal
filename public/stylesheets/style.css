@@ -68,14 +68,6 @@ h1 {
   align-items: center;
 }
 
-.userCircle {
-  background-color: lightgrey;
-  clip-path: circle(50px);
-  align-self: center;
-  width: 100px;
-  height: 100px;
-}
-
 .circleContainer {
   display: flex;
   flex-direction: column;
@@ -83,7 +75,7 @@ h1 {
   margin-top: 10vh;
   position: absolute;
   z-index: 1;
-  width: 150px;
+  width: 50px;
 }
 
 @media only screen and (orientation: portrait) {
