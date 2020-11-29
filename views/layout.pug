@@ -4,24 +4,24 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     block scripts
-    script(src='/scripts/weather.js')
     block styles
   body
-
     .header
       #user
         if user
           .circleContainer
             .userCircle
-              img(src="svg/menu.svg")
+              img(src="svg/menu.svg" height="80px" width="80px")
             a(href="/home" class="dropdown") Home
             a(href="/users/profile" class="dropdown") Profile
-            a(href="/" class="dropdown") Logout
+            p(class="dropdown") test 1
 
       .headerCurve
+        #user
+          if user
+            a(id='logout' href='/') Logout
         h1 Weather Moods
-        //NOT SURE WHY IT DOESNT CHANGE
-        h2(id="currentLocation") Loading...
+        h2(class="currentLocation") Current Location
 
     .contentContainer
       block content
