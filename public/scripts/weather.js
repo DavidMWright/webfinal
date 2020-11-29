@@ -47,14 +47,14 @@ function getCity(coordinates, city, lat, lon, zipCode, unit, weatherID, searchLo
 
 function init(city, lat, lon, zipCode) {
     var searchLocation = 'q';
-var unit = 'imperial';
-var weatherID = '108e39011b5fb4c189360456ae96f6d5';
-var geoID = 'pk.80af763b520862b52d842b99f130e03d';
-var city = '';
-var part = 'alerts';
-var lon = '';
-var lat = '';
-var zipCode = '';
+    var unit = 'imperial';
+    var weatherID = '108e39011b5fb4c189360456ae96f6d5';
+    var geoID = 'pk.80af763b520862b52d842b99f130e03d';
+    var city = '';
+    var part = 'alerts';
+    var lon = '';
+    var lat = '';
+    var zipCode = '';
     getGeoLocation(city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part);
 }
 
