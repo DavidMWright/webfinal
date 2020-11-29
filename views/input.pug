@@ -8,10 +8,10 @@ block content
     h2 Current Weather
     .current
       //TODO: make the superscript look better
-      h1 45&deg<sup>F | C</sup>
+      h1(id="currentTemp")
       .currentWeather
-        img(src='https://via.placeholder.com/100/666666/ffffff?text=icon')
-        p Rain
+        img(id="documentIconElement")
+      p(id="weatherDescriptionElement")
   .sliderContainer
     h2 How are we feeling today?
     form(action="/input" method='POST')
