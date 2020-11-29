@@ -1,6 +1,25 @@
 var users = require('../models/userModel');
 var Mood = require('../models/mood');
+var fetch = require('node-fetch');
 
+
+const getWeather = async () => {
+    let unit = 'imperial';
+    let weatherID = '108e39011b5fb4c189360456ae96f6d5';
+    let lat = '45.5270';
+    let lon = '-123.1211';
+    let part = 'alerts,hourly,minutely,current';
+    let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=' + unit + '&exclude=' + part + '&appid=' + weatherID;    
+
+    const res = await fetch(url);
+    const json = await res.json();
+
+    return json;
+}
+
+/*
+Renders sign in page
+*/
 exports.sign_in_page = function(req, res) {
     req.session.destroy();
     res.render('index', { title: 'WeatherMood | Welcome', err: req.query.err });
@@ -27,14 +46,13 @@ exports.sign_in = function(req, res) {
                         req.session.user = user;
 
                         let date = new Date();
-                        let query = Mood.findOne({ date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(), _user: req.session.user._id });
+                        let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
                         query.exec(function(err, result) {
                             if(err) {
                                 console.log(err);
                                 res.redirect('/')
                             }
                             else if(result) {
-                                console.log(result);
                                 res.redirect('/home');
                             }
                             else {
@@ -119,11 +137,19 @@ exports.sign_up_page = function(req, res) {
 /*
 Renders main home page. If invalid session, redirects to login
 */
-exports.home = function(req, res) {
+exports.home = async function(req, res) {
     if(req.session.user) {
         // Need to set up getting and sending weather data from database to home page
         
-        res.render('home', { title: 'WeatherMood | Home', user: req.session.user });
+        let weather = await getWeather();
+        let weatherJson = { desc: [], temp: [] };
+
+        for(let i = 0; i < 7; i++) {
+            weatherJson.desc.push(weather.daily[i].weather[0].description);
+            weatherJson.temp.push(weather.daily[i].temp.day);
+        }
+        
+        res.render('home', { title: 'WeatherMood | Home', user: req.session.user, weather: weatherJson });
     }
     else {
         let err = encodeURIComponent('Session Timed Out');
@@ -152,7 +178,7 @@ exports.input = function(req, res) {
         let date = new Date();
         let insert = { 
             mood_percent: req.body.mood, 
-            date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(),
+            date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
             _user: req.session.user._id
         };
 
