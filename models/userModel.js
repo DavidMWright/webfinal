@@ -8,7 +8,8 @@ var UserSchema = new Schema(
     last_name: {type: String, required: true, maxlength: 100},
     user_name: {type: String, required: true, maxlength: 100},
     password: {type: String, required: true, maxlength: 100},
-    email: {type: String, required: true, maxlength: 100}
+    email: {type: String, required: true, maxlength: 100},
+    sec_answer: {type: String, required: true, maxlength: 100}
   }
 );
 
