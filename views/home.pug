@@ -7,15 +7,29 @@ block append scripts
   //script(src='/scripts/weather.js')
 
 block content
-  p 7 Day Forcast and Predicted Mood
-  
+  h2(style="text-align: center;") 7 Day Forcast and Predicted Mood
   .weekContainer
-            
+    -let i = 1
+    -let days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
+    while i < 8
+      .weekItem
+        h1=days[weather.days[i]]
+        .weekItemContent
+          -let source = `http://openweathermap.org/img/w/${weather.icon[i]}.png`
+          -let temp = String(weather.temp[i]) + '\u00B0'
+          img(src=source)
+          p=weather.desc[i]
+          h2=temp
+      -i++
   .current
-    h1(id="currentTemp")
+    .currentTemp
+      -let temp = String(weather.temp[0]) + '\u00B0'
+      h1(id="currentTemp")=temp
+      p Current Temperature
     .currentWeather
       -let source = `http://openweathermap.org/img/w/${weather.icon[0]}.png`
       img(id="documentIconElement", src=source)
+      p=weather.desc[0]
     .moodsModule
       h1=mood
       p Your mood
@@ -25,9 +39,9 @@ block content
     .calendarKey
       - let colors=['red', 'orange', 'yellow', 'greenyellow', 'forestgreen']
       - let label=['-61% to -100%', '-31% to -60%', '-30% to 30%', '31% to 60%', '61% to 100%']
-      - let i = 0
-      while i < 5
+      - let j = 0
+      while j < 5
         .calendarKeyItem
-          <div class="calendarKeyColor" style="background-color: #{colors[i]}"></div>
-          p #{label[i]}
-        - i++
+          <div class="calendarKeyColor" style="background-color: #{colors[j]}"></div>
+          p #{label[j]}
+        - j++
