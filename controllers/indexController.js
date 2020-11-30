@@ -9,12 +9,23 @@ const getWeather = async () => {
     let lat = '45.5270';
     let lon = '-123.1211';
     let part = 'alerts,hourly,minutely,current';
+
+    let options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0};
+    
+
     let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=' + unit + '&exclude=' + part + '&appid=' + weatherID;    
 
     const res = await fetch(url);
     const json = await res.json();
 
     return json;
+}
+
+/*
+GETS LONG AND LAT
+*/
+exports.api = function(req, res) {
+    console.log(req);
 }
 
 /*

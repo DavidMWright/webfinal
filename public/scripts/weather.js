@@ -1,3 +1,5 @@
+//const { stringify } = require("querystring");
+
 function getGeoLocation(city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part) { 
     var options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}; 
   
@@ -34,10 +36,40 @@ function getCity(coordinates, city, lat, lon, zipCode, unit, weatherID, searchLo
   
     function processRequest() { 
         if (serverRequest.readyState == 4 && serverRequest.status == 200) { 
+            let clientLon = document.getElementById('lon').textContent;
+            let clientLat = document.getElementById('lat').textContent;
+
             var serverResponse = JSON.parse(serverRequest.responseText); 
             var serverCity = serverResponse.address.city; 
             zipCode = serverResponse.address.postcode;
-            console.log(serverResponse.address.postcode); 
+            console.log(serverResponse.address.postcode);
+            
+
+
+
+            
+
+            //CHECK ME OUT
+            clientLon = lon;
+            clientLat = lat;
+            const data = {lat, lon};
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                body : JSON.stringify(data)
+                
+            }
+            fetch('/api', options);
+
+
+
+
+
+
+
+
             city = serverCity;
             getWeather(city, lat, lon, unit, weatherID, part);
             return; 
@@ -82,8 +114,8 @@ function displayInfo(serverResult, city) {
     
 
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
-    weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
-    temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
+    //weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
+    //temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
 
     let div = document.getElementsByClassName('weekContainer')[0];
     //get label order based on current day of the week

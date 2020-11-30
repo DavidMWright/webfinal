@@ -29,4 +29,9 @@ router.get('/forgot', index.forgot_password_page);
 
 router.post('/forgot', index.forgot_password);
 
+router.post('/api', index.api);
+
+// GETS LON AND LAT FROM CLIENTSIDE
+
+
 module.exports = router;

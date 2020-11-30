@@ -19,6 +19,8 @@ app.use(session({
   cookie: { maxAge: 300000, secure: false }
 }));
 
+
+
 //Set up mongoose connection
 var mongoose = require('mongoose');
 var mongoDB = 'mongodb+srv://root:root@cluster0.tvqh2.mongodb.net/WeatherMood?retryWrites=true&w=majority';
@@ -55,6 +57,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.post('/api', (request, response) => {
+  console.log(request);
 });
 
 module.exports = app;
