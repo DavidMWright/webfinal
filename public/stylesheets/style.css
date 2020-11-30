@@ -202,8 +202,13 @@ h1 {
 
 /*TODO: figure out how to stop the current temp from taking up more than half the width of the page*/
 .current > h1 {
-  font-size: 20em;
+  font-size: 15em;
   flex-grow: 3;
+}
+
+.current > h1 > sup {
+  font-size: 5vh;
+  margin-top: -5vh;
 }
 
 .currentWeather {
@@ -213,9 +218,9 @@ h1 {
   flex-grow: 1;
 }
 
-.currentWeather > h2 {
+.currentWeather > p {
   text-align: center;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .currentWeather > img {
@@ -329,7 +334,6 @@ td {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .slider {
@@ -352,7 +356,6 @@ td {
   flex-direction: row;
   justify-content: space-between;
   font-size: 25px;
-  align-self: stretch;
 }
 
 .output {
@@ -368,17 +371,5 @@ td {
   color: white;
   padding: 5px 10px;
   width: 125px;
-}
-
-.inputHeader > h1 {
-  font-size: 45px;
-  text-align: center;
-}
-
-.sliderForm {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  margin: auto;
 }
