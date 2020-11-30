@@ -35,7 +35,7 @@ exports.sign_in = function(req, res) {
     }
     else {
         let query = users.findOne({ user_name: req.body.username }); 
-        query.exec(function(err, user) {
+        query.exec(async function(err, user) {
             if(err) {
                 console.log(err);
                 res.redirect('/');
@@ -44,6 +44,12 @@ exports.sign_in = function(req, res) {
                 if(user) {
                     if(user.password == req.body.password) {
                         req.session.user = user;
+
+                        let weather = await getWeather();
+                        let temp = String(weather.daily[0].temp.day);
+                        let desc = String(weather.daily[0].weather[0].description);
+                
+                        req.session.weather = { temp: temp, desc: desc };
 
                         let date = new Date();
                         let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
@@ -139,8 +145,7 @@ Renders main home page. If invalid session, redirects to login
 */
 exports.home = async function(req, res) {
     if(req.session.user) {
-        // Need to set up getting and sending weather data from database to home page
-        
+        // Get the weather data for the week
         let weather = await getWeather();
         let weatherJson = { desc: [], temp: [] };
 
@@ -149,7 +154,22 @@ exports.home = async function(req, res) {
             weatherJson.temp.push(weather.daily[i].temp.day);
         }
         
-        res.render('home', { title: 'WeatherMood | Home', user: req.session.user, weather: weatherJson });
+        // Get mood for today
+        var mood;
+        let date = new Date();
+        let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
+        query.exec(function(err, result) {
+            if(err) {
+                console.log(err);
+            }
+            else if (result) {
+                res.render('home', {    title: 'WeatherMood | Home', 
+                                        user: req.session.user, 
+                                        weather: weatherJson,
+                                        mood: result.mood_percent
+                });
+            }
+        });
     }
     else {
         let err = encodeURIComponent('Session Timed Out');
@@ -162,7 +182,11 @@ Renders user input page
 */
 exports.input_page = function(req, res) {
     if(req.session.user) {
-        res.render('input', { title: 'WeatherMood | Input your mood', user: req.session.user });
+        res.render('input', {   title: 'WeatherMood | Input your mood', 
+                                user: req.session.user,
+                                weather: req.session.weather
+                            }
+        );
     }
     else {
         let err = encodeURIComponent('Session Timed Out');
@@ -179,7 +203,9 @@ exports.input = function(req, res) {
         let insert = { 
             mood_percent: req.body.mood, 
             date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
-            _user: req.session.user._id
+            _user: req.session.user._id,
+            tempurature: req.session.weather.temp,
+            weather_type: req.session.weather.desc
         };
 
         Mood.create(insert, function(err, result) {
