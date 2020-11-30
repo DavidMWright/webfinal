@@ -163,6 +163,9 @@ exports.home = async function(req, res) {
                 console.log(err);
             }
             else if (result) {
+                // Get Mood averages
+                let moods = Mood.find({ _user: req.session.user._id });
+
                 res.render('home', {    title: 'WeatherMood | Home', 
                                         user: req.session.user, 
                                         weather: weatherJson,
