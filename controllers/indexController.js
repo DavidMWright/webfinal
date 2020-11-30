@@ -155,21 +155,28 @@ exports.home = async function(req, res) {
         }
         
         // Get mood for today
-        var mood;
         let date = new Date();
         let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
-        query.exec(function(err, result) {
+        query.exec(function(err, today) {
             if(err) {
                 console.log(err);
             }
-            else if (result) {
+            else if (today) {
                 // Get Mood averages
                 let moods = Mood.find({ _user: req.session.user._id });
+                moods.exec(function(err, all) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        
 
-                res.render('home', {    title: 'WeatherMood | Home', 
-                                        user: req.session.user, 
-                                        weather: weatherJson,
-                                        mood: result.mood_percent
+                        res.render('home', {    title: 'WeatherMood | Home', 
+                                                user: req.session.user, 
+                                                weather: weatherJson,
+                                                mood: today.mood_percent
+                        });
+                    }
                 });
             }
         });
