@@ -113,10 +113,11 @@ h1 {
   margin: 5px;
 }
 
-.signup {
+.signup, .forgotPwd {
   display: flex;
   justify-content: center;
 }
+
 
 @media only screen and (orientation: portrait) {
   .signin {
@@ -133,11 +134,10 @@ h1 {
     height: 30px;
   }
 
-  .signup {
+  .signup, .forgotPwd{
     font-size: 25px;
   }
 }
-
 .signinButton > input {
   border-width: 0px;
   border-radius: 15%;
