@@ -146,19 +146,19 @@ Renders main home page. If invalid session, redirects to login
 */
 exports.home = async function(req, res) {
     if(req.session.user) {
+        let date = new Date();
         // Get the weather data for the week
         let weather = await getWeather();
-        let weatherJson = { desc: [], temp: [], icon: [] };
+        let weatherJson = { desc: [], temp: [], icon: [], days: [] };
 
-        for(let i = 0; i < 7; i++) {
+        for(let i = 0; i < 8; i++) {
             weatherJson.desc.push(weather.daily[i].weather[0].description);
-            weatherJson.temp.push(weather.daily[i].temp.day);
+            weatherJson.temp.push(Math.round(weather.daily[i].temp.day));
             weatherJson.icon.push(weather.daily[i].weather[0].icon);
+            weatherJson.days.push((date.getDay() + i) % 7);
         }
-        
         // Get mood for today
         var mood;
-        let date = new Date();
         let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
         query.exec(function(err, result) {
             if(err) {
