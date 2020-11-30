@@ -223,3 +223,14 @@ exports.input = function(req, res) {
     }
 
 }
+//Redirect to edit profile page if security question is right
+exports.forgot_password = function(req, res) {
+    let query = users.findOne({ user_name: req.body.username }); 
+    query.exec(async function(err, user) {
+        if(err) {
+            console.log(err);
+            res.redirect('/');
+        }
+        else {
+            if(user.sec_answer == req.body.) 
+}
