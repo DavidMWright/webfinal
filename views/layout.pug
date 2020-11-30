@@ -9,7 +9,7 @@ html
   body
     .header
       #user
-        if user
+        if user && !input
           .circleContainer
             .userCircle
               img(src="svg/menu.svg" height="80px" width="80px")

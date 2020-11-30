@@ -184,7 +184,8 @@ exports.input_page = function(req, res) {
     if(req.session.user) {
         res.render('input', {   title: 'WeatherMood | Input your mood', 
                                 user: req.session.user,
-                                weather: req.session.weather
+                                weather: req.session.weather,
+                                input: 'inputpage'
                             }
         );
     }
