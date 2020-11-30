@@ -25,4 +25,8 @@ router.post('/input', index.input);
 // Get input page
 router.get('/input', index.input_page);
 
+router.get('/forgot', index.forgot_password_page);
+
+router.post('/forgot', index.forgot_password);
+
 module.exports = router;

@@ -223,14 +223,34 @@ exports.input = function(req, res) {
     }
 
 }
-//Redirect to edit profile page if security question is right
+
+// Renders forgot password page
+exports.forgot_password_page = function(req, res) {
+    res.render('forgotPassword', { title: 'WeatherMood | Forgot Password', err: req.query.err })
+}
+
+//Redirect to sign in if security question is right
 exports.forgot_password = function(req, res) {
     let query = users.findOne({ user_name: req.body.username }); 
-    query.exec(async function(err, user) {
+    query.exec(function(err, user) {
         if(err) {
             console.log(err);
             res.redirect('/');
         }
+        else if(!/\d/.test(req.body.password) || /^\d+$/.test(req.body.password) || req.body.password.length < 8){
+            let err = encodeURIComponent('Password must contain letters and numbers and be > 8 chars');
+            res.redirect('/forgot?err=' + err);
+        }
+        else if(user.sec_answer != req.body.security){
+            let err = encodeURIComponent('Failed Security Question');
+            res.redirect('/forgot?err=' + err);
+        }
         else {
-            if(user.sec_answer == req.body.) 
+            user.password = req.body.password;
+            user.save();
+
+            let err = encodeURIComponent('Password Changed');
+            res.redirect('/?err=' + err);
+        }
+    });
 }
