@@ -10,7 +10,8 @@ block content
       //TODO: make the superscript look better
       h1(id="currentTemp")=weather.temp
       .currentWeather
-        img(id="documentIconElement")
+        -let source = `http://openweathermap.org/img/w/${weather.icon}.png`
+        img(id="documentIconElement", src=source)
       p(id="weatherDescriptionElement")=weather.desc
   .sliderContainer
     h2 How are we feeling today?
