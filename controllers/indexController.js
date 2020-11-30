@@ -1,25 +1,6 @@
 var users = require('../models/userModel');
 var Mood = require('../models/mood');
-var fetch = require('node-fetch');
 
-
-const getWeather = async () => {
-    let unit = 'imperial';
-    let weatherID = '108e39011b5fb4c189360456ae96f6d5';
-    let lat = '45.5270';
-    let lon = '-123.1211';
-    let part = 'alerts,hourly,minutely,current';
-    let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=' + unit + '&exclude=' + part + '&appid=' + weatherID;    
-
-    const res = await fetch(url);
-    const json = await res.json();
-
-    return json;
-}
-
-/*
-Renders sign in page
-*/
 exports.sign_in_page = function(req, res) {
     req.session.destroy();
     res.render('index', { title: 'WeatherMood | Welcome', err: req.query.err });
@@ -35,7 +16,7 @@ exports.sign_in = function(req, res) {
     }
     else {
         let query = users.findOne({ user_name: req.body.username }); 
-        query.exec(async function(err, user) {
+        query.exec(function(err, user) {
             if(err) {
                 console.log(err);
                 res.redirect('/');
@@ -45,20 +26,15 @@ exports.sign_in = function(req, res) {
                     if(user.password == req.body.password) {
                         req.session.user = user;
 
-                        let weather = await getWeather();
-                        let temp = String(weather.daily[0].temp.day);
-                        let desc = String(weather.daily[0].weather[0].description);
-                
-                        req.session.weather = { temp: temp, desc: desc };
-
                         let date = new Date();
-                        let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
+                        let query = Mood.findOne({ date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(), _user: req.session.user._id });
                         query.exec(function(err, result) {
                             if(err) {
                                 console.log(err);
                                 res.redirect('/')
                             }
                             else if(result) {
+                                console.log(result);
                                 res.redirect('/home');
                             }
                             else {
@@ -143,33 +119,11 @@ exports.sign_up_page = function(req, res) {
 /*
 Renders main home page. If invalid session, redirects to login
 */
-exports.home = async function(req, res) {
+exports.home = function(req, res) {
     if(req.session.user) {
-        // Get the weather data for the week
-        let weather = await getWeather();
-        let weatherJson = { desc: [], temp: [] };
-
-        for(let i = 0; i < 7; i++) {
-            weatherJson.desc.push(weather.daily[i].weather[0].description);
-            weatherJson.temp.push(weather.daily[i].temp.day);
-        }
+        // Need to set up getting and sending weather data from database to home page
         
-        // Get mood for today
-        var mood;
-        let date = new Date();
-        let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
-        query.exec(function(err, result) {
-            if(err) {
-                console.log(err);
-            }
-            else if (result) {
-                res.render('home', {    title: 'WeatherMood | Home', 
-                                        user: req.session.user, 
-                                        weather: weatherJson,
-                                        mood: result.mood_percent
-                });
-            }
-        });
+        res.render('home', { title: 'WeatherMood | Home', user: req.session.user });
     }
     else {
         let err = encodeURIComponent('Session Timed Out');
@@ -182,11 +136,7 @@ Renders user input page
 */
 exports.input_page = function(req, res) {
     if(req.session.user) {
-        res.render('input', {   title: 'WeatherMood | Input your mood', 
-                                user: req.session.user,
-                                weather: req.session.weather
-                            }
-        );
+        res.render('input', { title: 'WeatherMood | Input your mood', user: req.session.user });
     }
     else {
         let err = encodeURIComponent('Session Timed Out');
@@ -202,10 +152,8 @@ exports.input = function(req, res) {
         let date = new Date();
         let insert = { 
             mood_percent: req.body.mood, 
-            date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
-            _user: req.session.user._id,
-            tempurature: req.session.weather.temp,
-            weather_type: req.session.weather.desc
+            date: date.getFullYear() + '-' + date.getMonth() + '-' + date.getDay(),
+            _user: req.session.user._id
         };
 
         Mood.create(insert, function(err, result) {
