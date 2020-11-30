@@ -14,8 +14,8 @@ block content
   .current
     h1(id="currentTemp")
     .currentWeather
-      img(id="documentIconElement")
-      p(id="weatherDescriptionElement")
+      -let source = `http://openweathermap.org/img/w/${weather.icon[0]}.png`
+      img(id="documentIconElement", src=source)
     .moodsModule
       h1=mood
       p Your mood

@@ -48,8 +48,9 @@ exports.sign_in = function(req, res) {
                         let weather = await getWeather();
                         let temp = String(weather.daily[0].temp.day);
                         let desc = String(weather.daily[0].weather[0].description);
+                        let icon = String(weather.daily[0].weather[0].icon);
                 
-                        req.session.weather = { temp: temp, desc: desc };
+                        req.session.weather = { temp: temp, desc: desc, icon: icon };
 
                         let date = new Date();
                         let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
@@ -147,11 +148,12 @@ exports.home = async function(req, res) {
     if(req.session.user) {
         // Get the weather data for the week
         let weather = await getWeather();
-        let weatherJson = { desc: [], temp: [] };
+        let weatherJson = { desc: [], temp: [], icon: [] };
 
         for(let i = 0; i < 7; i++) {
             weatherJson.desc.push(weather.daily[i].weather[0].description);
             weatherJson.temp.push(weather.daily[i].temp.day);
+            weatherJson.icon.push(weather.daily[i].weather[0].icon);
         }
         
         // Get mood for today
@@ -206,9 +208,9 @@ exports.input = function(req, res) {
             date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
             _user: req.session.user._id,
             tempurature: req.session.weather.temp,
-            weather_type: req.session.weather.desc
+            weather_type: req.session.weather.desc,
+            session: req.session.weather
         };
-
         Mood.create(insert, function(err, result) {
             if(err){
                 console.log(err);
@@ -218,8 +220,8 @@ exports.input = function(req, res) {
         res.redirect('/home')
     }
     else {
-        let err = encodeURIComponent('Session Timed Out');
-        res.redirect('/?err=' + err);
+        //let err = encodeURIComponent('Session Timed Out');
+        //res.redirect('/?err=' + err);
     }
 
 }
