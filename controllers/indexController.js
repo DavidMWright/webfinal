@@ -46,7 +46,7 @@ exports.sign_in = function(req, res) {
                         req.session.user = user;
 
                         let weather = await getWeather();
-                        let temp = String(weather.daily[0].temp.day);
+                        let temp = String(Math.floor(weather.daily[0].temp.day));
                         let desc = String(weather.daily[0].weather[0].description);
                 
                         req.session.weather = { temp: temp, desc: desc };
