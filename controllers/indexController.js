@@ -86,7 +86,7 @@ Validates and sendsd data from sign up page to data base and redirects to sign i
 exports.sign_up = function(req, res) {
     let signup = true;
 
-    if(!req.body.username || !req.body.password || !req.body.confirm || !req.body.email || !req.body.f_name || !req.body.l_name) {
+    if(!req.body.username || !req.body.password || !req.body.confirm || !req.body.email || !req.body.f_name || !req.body.l_name || !req.body.security) {
         let err = encodeURIComponent('Please Fill Out All Fields');
         res.redirect('/signup?err=' + err);
     }
@@ -124,7 +124,7 @@ exports.sign_up = function(req, res) {
                         res.redirect('/signup?err=' + err);
                     }
                     else {
-                        users.create({ user_name: req.body.username, password: req.body.password, email: req.body.email, first_name: req.body.f_name, last_name: req.body.l_name });
+                        users.create({ user_name: req.body.username, password: req.body.password, email: req.body.email, first_name: req.body.f_name, last_name: req.body.l_name, sec_answer: req.body.security });
                         res.redirect('/');
                     }
                 }
