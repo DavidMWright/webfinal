@@ -18,6 +18,7 @@ router.post('/', index.sign_up);
 
 // GET Home page
 router.get('/home', index.home);
+router.post('/home', index.home);
 
 // POST Home page
 router.post('/input', index.input);
@@ -29,7 +30,9 @@ router.get('/forgot', index.forgot_password_page);
 
 router.post('/forgot', index.forgot_password);
 
-router.post('/api', index.api);
+// router.post('/api', (request, response) => {
+//     console.log(request.body);
+//   });
 
 // GETS LON AND LAT FROM CLIENTSIDE
 

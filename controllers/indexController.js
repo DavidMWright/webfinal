@@ -3,14 +3,14 @@ var Mood = require('../models/mood');
 var fetch = require('node-fetch');
 
 
-const getWeather = async () => {
+const getWeather = async (req, loca) => {
     let unit = 'imperial';
     let weatherID = '108e39011b5fb4c189360456ae96f6d5';
     let lat = '45.5270';
     let lon = '-123.1211';
     let part = 'alerts,hourly,minutely,current';
-
-    let options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0};
+    console.log(loca);
+    console.log(req.lat);
     
 
     let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=' + unit + '&exclude=' + part + '&appid=' + weatherID;    
@@ -19,13 +19,6 @@ const getWeather = async () => {
     const json = await res.json();
 
     return json;
-}
-
-/*
-GETS LONG AND LAT
-*/
-exports.api = function(req, res) {
-    console.log(req);
 }
 
 /*
@@ -39,7 +32,9 @@ exports.sign_in_page = function(req, res) {
 /*
 Validates sign in request and redirects to home page and sets up session
 */
-exports.sign_in = function(req, res) {
+exports.sign_in = async function(req, res) {
+    console.log(req.body);
+    let loca = 'Signin';
     if(!req.body.username || !req.body.password) {
         let err = encodeURIComponent('Please Enter Username and Password');
         res.redirect('/?err=' + err);
@@ -56,7 +51,7 @@ exports.sign_in = function(req, res) {
                     if(user.password == req.body.password) {
                         req.session.user = user;
 
-                        let weather = await getWeather();
+                        let weather = await getWeather(req.body, loca);
                         let temp = String(Math.floor(weather.daily[0].temp.day));
                         let desc = String(weather.daily[0].weather[0].description);
                         let icon = String(weather.daily[0].weather[0].icon);
@@ -156,9 +151,10 @@ exports.sign_up_page = function(req, res) {
 Renders main home page. If invalid session, redirects to login
 */
 exports.home = async function(req, res) {
+    let loca = 'Home';
     if(req.session.user) {
         // Get the weather data for the week
-        let weather = await getWeather();
+        let weather = await getWeather(req.body, loca);
         let weatherJson = { desc: [], temp: [], icon: [] };
 
         for(let i = 0; i < 7; i++) {

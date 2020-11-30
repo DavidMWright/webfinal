@@ -1,5 +1,7 @@
 //const { stringify } = require("querystring");
 
+//const { response } = require("express");
+
 function getGeoLocation(city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part) { 
     var options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}; 
   
@@ -47,7 +49,7 @@ function getCity(coordinates, city, lat, lon, zipCode, unit, weatherID, searchLo
 
 
 
-            
+
 
             //CHECK ME OUT
             clientLon = lon;
@@ -61,7 +63,10 @@ function getCity(coordinates, city, lat, lon, zipCode, unit, weatherID, searchLo
                 body : JSON.stringify(data)
                 
             }
-            fetch('/api', options);
+            fetch('/signin', options);
+            fetch('/home', options);
+
+            
 
 
 
