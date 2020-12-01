@@ -6,6 +6,7 @@ html
 
     block scripts
       script(src='/scripts/dropdown.js')
+      script(src='/scripts/weather.js')
       
     block styles
   body
@@ -22,7 +23,7 @@ html
       .headerCurve
   
         h1 Weather Moods
-        h2(class="currentLocation") Current Location
+        h2(id="currentLocation") Current Location
 
     .contentContainer
       block content

@@ -8,18 +8,16 @@ block append scripts
 block content
   h2(style="text-align: center;") 7 Day Forcast and Predicted Mood
   .weekContainer
-    -let i = 1
-    -let days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat']
+    
     while i < 8
       .weekItem
-        h1=days[weather.days[i]]
+        h1
         .weekItemContent
-          -let source = `http://openweathermap.org/img/w/${weather.icon[i]}.png`
-          -let temp = String(weather.temp[i]) + '\u00B0'
+          
           img(src=source)
           p=weather.desc[i]
           h2=temp
-      -i++
+      
   .current
     .currentTemp
       -let temp = String(weather.temp[0]) + '\u00B0'
