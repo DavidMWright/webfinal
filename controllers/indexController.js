@@ -196,6 +196,8 @@ exports.home = async function(req, res) {
                         }
 
                         console.log(weatherJson.avg);
+                        console.log("HEREEEEEEEEEE");
+
 
                         res.render('home', {    title: 'WeatherMood | Home', 
                                                 user: req.session.user, 

@@ -1,3 +1,5 @@
+//const { stringify } = require("querystring");
+
 function getGeoLocation(city, lat, lon, zipCode, unit, weatherID, searchLocation, geoID, part) { 
     var options = {enableHighAccuracy: true, timeout: 5000, maximumAge: 0}; 
   
@@ -82,6 +84,16 @@ function displayInfo(serverResult, city) {
     let zipCodeElement = document.getElementById('zip');
     let weatherDescriptionResult = serverResult.current.weather[0].description;
     
+    let dailyMood = document.getElementById('expectedMood');
+    let temp = dailyMood.innerText
+    let splitMood = temp.split(',')
+    console.log(splitMood);
+    dailyMood.remove();
+
+    //let expectedMood = dailyMood.charAt(0).toUpperCase() + dailyMood.slice(1);
+    //let mood = Array.from(dailyMood).join(' ');
+    
+    //console.log(dailyMood);
 
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     //weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
@@ -105,6 +117,7 @@ function displayInfo(serverResult, city) {
         let image = document.createElement("img");
         let description = document.createElement("p");
         let temperature = document.createElement("h2");
+        let mood = document.createElement("p");
 
         day.classList.add("weekItem");
         //add header to day element
@@ -123,6 +136,12 @@ function displayInfo(serverResult, city) {
         
         day.appendChild(dayContent);
         div.appendChild(day);
+
+        mood.innerText = "Expected mood: " + splitMood[i] +"%";
+        day.appendChild(mood);
+        console.log(dailyMood);
+        console.log(mood);
+
     }
 }
 

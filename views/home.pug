@@ -8,7 +8,8 @@ block append scripts
 block content
   h2(style="text-align: center;") 7 Day Forcast and Predicted Mood
   .weekContainer
-    
+    -let expectedMood = String(weather.avg)
+    p(id="expectedMood")=expectedMood
     while i < 8
       .weekItem
         h1
@@ -17,6 +18,8 @@ block content
           img(src=source)
           p=weather.desc[i]
           h2=temp
+          
+          
       
   .current
     .currentTemp
