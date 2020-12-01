@@ -131,17 +131,16 @@ function displayInfo(serverResult, city) {
         //add description and temperature
         description.innerHTML = serverResult.daily[i].weather[0].description;
         temperature.innerHTML = Math.floor(serverResult.daily[i].temp.day) + String.fromCharCode(176);
+        mood.innerText = "Expected mood: " + splitMood[i] +"%";
         dayContent.appendChild(description);
         dayContent.appendChild(temperature);
-        
+        dayContent.appendChild(mood);
         day.appendChild(dayContent);
+        
         div.appendChild(day);
 
-        mood.innerText = "Expected mood: " + splitMood[i] +"%";
-        day.appendChild(mood);
-        console.log(dailyMood);
-        console.log(mood);
-
+       
+        
     }
 }
 
