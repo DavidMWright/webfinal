@@ -39,6 +39,9 @@ function getCity(coordinates, city, lat, lon, zipCode, unit, weatherID, searchLo
             zipCode = serverResponse.address.postcode;
             console.log(serverResponse.address.postcode); 
             city = serverCity;
+            console.log(city);
+            let cityElement = document.getElementById('currentLocation');
+            cityElement.innerText = city.charAt(0).toUpperCase() + city.slice(1);
             getWeather(city, lat, lon, unit, weatherID, part);
             return; 
         } 
@@ -73,8 +76,7 @@ function displayInfo(serverResult, city) {
     let dailyElement = document.getElementsByClassName('weekItem')
 
     //SET CURRENT LOCATION
-    let cityElement = document.getElementById('currentLocation');
-    cityElement.innerText = city.charAt(0).toUpperCase() + city.slice(1);
+    
     
     let weatherIconElement = document.getElementById('documentIconElement');
     let zipCodeElement = document.getElementById('zip');
@@ -82,8 +84,10 @@ function displayInfo(serverResult, city) {
     
 
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
-    weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
-    temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
+    //weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
+    //temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
+
+    console.log(serverResult.daily);
 
     let div = document.getElementsByClassName('weekContainer')[0];
     //get label order based on current day of the week

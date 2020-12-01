@@ -48,8 +48,9 @@ exports.sign_in = function(req, res) {
                         let weather = await getWeather();
                         let temp = String(Math.floor(weather.daily[0].temp.day));
                         let desc = String(weather.daily[0].weather[0].description);
+                        let icon = String(weather.daily[0].weather[0].icon);
                 
-                        req.session.weather = { temp: temp, desc: desc };
+                        req.session.weather = { temp: temp, desc: desc, icon: icon };
 
                         let date = new Date();
                         let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
@@ -86,7 +87,7 @@ Validates and sendsd data from sign up page to data base and redirects to sign i
 exports.sign_up = function(req, res) {
     let signup = true;
 
-    if(!req.body.username || !req.body.password || !req.body.confirm || !req.body.email || !req.body.f_name || !req.body.l_name) {
+    if(!req.body.username || !req.body.password || !req.body.confirm || !req.body.email || !req.body.f_name || !req.body.l_name || !req.body.security) {
         let err = encodeURIComponent('Please Fill Out All Fields');
         res.redirect('/signup?err=' + err);
     }
@@ -124,7 +125,7 @@ exports.sign_up = function(req, res) {
                         res.redirect('/signup?err=' + err);
                     }
                     else {
-                        users.create({ user_name: req.body.username, password: req.body.password, email: req.body.email, first_name: req.body.f_name, last_name: req.body.l_name });
+                        users.create({ user_name: req.body.username, password: req.body.password, email: req.body.email, first_name: req.body.f_name, last_name: req.body.l_name, sec_answer: req.body.security });
                         res.redirect('/');
                     }
                 }
@@ -145,6 +146,7 @@ Renders main home page. If invalid session, redirects to login
 */
 exports.home = async function(req, res) {
     if(req.session.user) {
+        let date = new Date();
         // Get the weather data for the week
         let weather = await getWeather();
         let weatherJson = { desc: [], temp: [], avg: [] };
@@ -152,11 +154,12 @@ exports.home = async function(req, res) {
         let totals = [0, 0, 0, 0, 0, 0, 0];
         let counts = [0, 0, 0, 0, 0, 0, 0];
 
-        for(let i = 0; i < 7; i++) {
+        for(let i = 0; i < 8; i++) {
             weatherJson.desc.push(weather.daily[i].weather[0].description);
-            weatherJson.temp.push(weather.daily[i].temp.day);
+            weatherJson.temp.push(Math.round(weather.daily[i].temp.day));
+            weatherJson.icon.push(weather.daily[i].weather[0].icon);
+            weatherJson.days.push((date.getDay() + i) % 7);
         }
-        
         // Get mood for today
         let date = new Date();
         let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
@@ -240,9 +243,9 @@ exports.input = function(req, res) {
             date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(),
             _user: req.session.user._id,
             tempurature: req.session.weather.temp,
-            weather_type: req.session.weather.desc
+            weather_type: req.session.weather.desc,
+            session: req.session.weather
         };
-
         Mood.create(insert, function(err, result) {
             if(err){
                 console.log(err);
@@ -252,8 +255,39 @@ exports.input = function(req, res) {
         res.redirect('/home')
     }
     else {
-        let err = encodeURIComponent('Session Timed Out');
-        res.redirect('/?err=' + err);
+        //let err = encodeURIComponent('Session Timed Out');
+        //res.redirect('/?err=' + err);
     }
 
+}
+
+// Renders forgot password page
+exports.forgot_password_page = function(req, res) {
+    res.render('forgotPassword', { title: 'WeatherMood | Forgot Password', err: req.query.err })
+}
+
+//Redirect to sign in if security question is right
+exports.forgot_password = function(req, res) {
+    let query = users.findOne({ user_name: req.body.username }); 
+    query.exec(function(err, user) {
+        if(err) {
+            console.log(err);
+            res.redirect('/');
+        }
+        else if(!/\d/.test(req.body.password) || /^\d+$/.test(req.body.password) || req.body.password.length < 8){
+            let err = encodeURIComponent('Password must contain letters and numbers and be > 8 chars');
+            res.redirect('/forgot?err=' + err);
+        }
+        else if(user.sec_answer != req.body.security){
+            let err = encodeURIComponent('Failed Security Question');
+            res.redirect('/forgot?err=' + err);
+        }
+        else {
+            user.password = req.body.password;
+            user.save();
+
+            let err = encodeURIComponent('Password Changed');
+            res.redirect('/?err=' + err);
+        }
+    });
 }
