@@ -149,7 +149,7 @@ exports.home = async function(req, res) {
         let date = new Date();
         // Get the weather data for the week
         let weather = await getWeather();
-        let weatherJson = { desc: [], temp: [], avg: [] };
+        let weatherJson = { desc: [], temp: [], icon: [], days: [], avg: [] };
         
         let totals = [0, 0, 0, 0, 0, 0, 0];
         let counts = [0, 0, 0, 0, 0, 0, 0];
@@ -161,7 +161,6 @@ exports.home = async function(req, res) {
             weatherJson.days.push((date.getDay() + i) % 7);
         }
         // Get mood for today
-        let date = new Date();
         let query = Mood.findOne({ date: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate(), _user: req.session.user._id });
         query.exec(function(err, today) {
             if(err) {
@@ -183,17 +182,17 @@ exports.home = async function(req, res) {
                         console.log(err);
                     }
                     else {
-                        for(let item in all) {
+                        for(let j = 0; j < all.length; j++) {
                             for(let i = 0; i < 7; i++) {
-                                if (item.weather_type == weatherJson.desc) {
-                                    totals[i] += item.mood_percent;
-                                    count[i]++;
+                                if (all[j].weather_type == weatherJson.desc[i]) {
+                                    totals[i] += all[j].mood_percent;
+                                    counts[i]++;
                                 }
                             }
                         }
 
-                        for(let item in totals) {
-                            weatherJson.avg.push(item / counts);
+                        for(let i = 0; i < totals.length; i++) {
+                            weatherJson.avg.push(totals[i] / counts[i]);
                         }
 
                         console.log(weatherJson.avg);
