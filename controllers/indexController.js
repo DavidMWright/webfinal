@@ -147,7 +147,10 @@ exports.home = async function(req, res) {
     if(req.session.user) {
         // Get the weather data for the week
         let weather = await getWeather();
-        let weatherJson = { desc: [], temp: [] };
+        let weatherJson = { desc: [], temp: [], avg: [] };
+        
+        let totals = [0, 0, 0, 0, 0, 0, 0];
+        let counts = [0, 0, 0, 0, 0, 0, 0];
 
         for(let i = 0; i < 7; i++) {
             weatherJson.desc.push(weather.daily[i].weather[0].description);
@@ -163,13 +166,34 @@ exports.home = async function(req, res) {
             }
             else if (today) {
                 // Get Mood averages
-                let moods = Mood.find({ _user: req.session.user._id });
+                let moods = Mood.find({ _user: req.session.user._id, $or: [ {weather_type: weatherJson.desc[0]},
+                                                                            {weather_type: weatherJson.desc[1]},
+                                                                            {weather_type: weatherJson.desc[2]},
+                                                                            {weather_type: weatherJson.desc[3]},
+                                                                            {weather_type: weatherJson.desc[4]},
+                                                                            {weather_type: weatherJson.desc[5]},
+                                                                            {weather_type: weatherJson.desc[6]},
+                                                                        ]
+                });
                 moods.exec(function(err, all) {
                     if (err) {
                         console.log(err);
                     }
                     else {
-                        
+                        for(let item in all) {
+                            for(let i = 0; i < 7; i++) {
+                                if (item.weather_type == weatherJson.desc) {
+                                    totals[i] += item.mood_percent;
+                                    count[i]++;
+                                }
+                            }
+                        }
+
+                        for(let item in totals) {
+                            weatherJson.avg.push(item / counts);
+                        }
+
+                        console.log(weatherJson.avg);
 
                         res.render('home', {    title: 'WeatherMood | Home', 
                                                 user: req.session.user, 
