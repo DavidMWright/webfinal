@@ -1,5 +1,5 @@
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 26px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-image: linear-gradient(grey, lightgrey);
   background-attachment: fixed;
   margin: 0;
@@ -23,6 +23,7 @@ h1 {
 @media only screen and (orientation: portrait) {
   .header {
     height: 15vh;
+    font-size: 14px;
   }
 }
 
@@ -209,7 +210,7 @@ h1 {
 }
 
 .currentTemp > h1 {
-  font-size: 15em;
+  font-size: 8em;
   margin: 0px;
 }
 
@@ -254,7 +255,7 @@ h1 {
 }
 
 .moodsModule > h1 {
-  font-size: 15em;
+  font-size: 8em;
   margin: 0;
 }
 
