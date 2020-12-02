@@ -243,6 +243,11 @@ h1 {
   margin: auto;
 }
 
+.weekItemContent > img {
+  height: 100px;
+  width: 100px;
+}
+
 .moods {
   display: flex;
   justify-content: space-between;
