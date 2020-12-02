@@ -33,15 +33,4 @@ block content
     .moodsModule
       h1=mood
       p Your mood
-  .calendarContainer
-    .calendar
-      p Loading...
-    .calendarKey
-      - let colors=['red', 'orange', 'yellow', 'greenyellow', 'forestgreen']
-      - let label=['-61% to -100%', '-31% to -60%', '-30% to 30%', '31% to 60%', '61% to 100%']
-      - let j = 0
-      while j < 5
-        .calendarKeyItem
-          <div class="calendarKeyColor" style="background-color: #{colors[j]}"></div>
-          p #{label[j]}
-        - j++
+
