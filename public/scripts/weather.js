@@ -72,9 +72,10 @@ function getWeather(city, lat, lon, unit, weatherID, part) {
 }
 
 function displayInfo(serverResult, city) {
-    //
+    //let inputTemperature = document.getElementById("inputTemp");
     let weatherDescriptionElement = document.getElementById('weatherDescriptionElement');
     let temperatureElement = document.getElementById('currentTemp');
+    temperatureElement.innerText= Math.floor(serverResult.current.temp) + String.fromCharCode(176);
     let dailyElement = document.getElementsByClassName('weekItem')
 
     //SET CURRENT LOCATION
@@ -83,7 +84,7 @@ function displayInfo(serverResult, city) {
     let weatherIconElement = document.getElementById('documentIconElement');
     let zipCodeElement = document.getElementById('zip');
     let weatherDescriptionResult = serverResult.current.weather[0].description;
-    
+
     let dailyMood = document.getElementById('expectedMood');
     let temp = dailyMood.innerText
     let splitMood = temp.split(',')
@@ -97,10 +98,9 @@ function displayInfo(serverResult, city) {
 
     weatherIconElement.src = 'http://openweathermap.org/img/w/' + serverResult.current.weather[0].icon + '.png';
     //weatherDescriptionElement.innerText = weatherDescriptionResult.charAt(0).toUpperCase() + weatherDescriptionResult.slice(1);
-    //temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
-
+    temperatureElement.innerText = Math.floor(serverResult.current.temp) + String.fromCharCode(176);
     console.log(serverResult.daily);
-
+    
     let div = document.getElementsByClassName('weekContainer')[0];
     //get label order based on current day of the week
     let days=['M', 'Tu', 'W', 'Th', 'F', 'Sat', 'Sun'];
@@ -131,7 +131,7 @@ function displayInfo(serverResult, city) {
         //add description and temperature
         description.innerHTML = serverResult.daily[i].weather[0].description;
         temperature.innerHTML = Math.floor(serverResult.daily[i].temp.day) + String.fromCharCode(176);
-        mood.innerText = "Expected mood: " + splitMood[i] +"%";
+        mood.innerText = "Expected mood: " + Math.floor(splitMood[i])+"%";
         dayContent.appendChild(description);
         dayContent.appendChild(temperature);
         dayContent.appendChild(mood);

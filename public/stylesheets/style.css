@@ -222,7 +222,7 @@ h1 {
 
 /*TODO: figure out how to stop the current temp from taking up more than half the width of the page*/
 .current > h1 {
-  font-size: 20em;
+  font-size: 250px;
   flex-grow: 3;
 }
 
