@@ -5,7 +5,7 @@ block content
     h1 Current Weather
     .current
       -let temp = String(weather.temp) + '\u00B0'
-      h1=temp
+      h1(id='currentTemp')=temp
       .currentWeather
         -let source = `http://openweathermap.org/img/w/${weather.icon}.png`
         img(src=source)
