@@ -11,3 +11,7 @@ Demo Credentials
 ----------------
 user: dougster
 pass: iloverain1
+
+Database
+--------
+No action required. Using Atlas cloud database
