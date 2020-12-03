@@ -27,8 +27,8 @@ block content
       h1(id="currentTemp")=temp
       p Current Temperature
     .currentWeather
-      -let source = `http://openweathermap.org/img/w/${weather.icon[0]}.png`
-      img(id="documentIconElement", src=source)
+      -let currSource = `http://openweathermap.org/img/w/${weather.icon[0]}.png`
+      img(id="documentIconElement", src=currSource)
       p=weather.desc[0]
     .moodsModule
       h1=mood

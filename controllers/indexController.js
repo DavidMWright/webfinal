@@ -195,7 +195,7 @@ exports.home = async function(req, res) {
                             weatherJson.avg.push(totals[i] / counts[i]);
                         }
 
-                        console.log(weatherJson.avg);
+                        console.log(weatherJson.icon[0]);
                         console.log("HEREEEEEEEEEE");
 
 
