@@ -1,0 +1,1 @@
+document.getElementById("menu").style.src = "~/svg/menu.svg";
