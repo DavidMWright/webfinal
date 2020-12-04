@@ -1,1 +1,2 @@
-document.getElementById("menu").style.src = "~/svg/menu.svg";
+let menu = document.getElementById("menu");
+menu.src = "../svg/menu.svg";
