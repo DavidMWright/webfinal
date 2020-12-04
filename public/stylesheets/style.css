@@ -220,7 +220,6 @@ h1 {
   margin: 0;
 }
 
-/*TODO: figure out how to stop the current temp from taking up more than half the width of the page*/
 .current > h1 {
   font-size: 250px;
   flex-grow: 3;
@@ -277,29 +276,6 @@ h1 {
   text-align: center;
 }
 
-
-.siteheader {
-  height: 200px;
-  width: 100%;
-  background-color: lightsalmon;
-  -webkit-clip-path: ellipse(75% 50% at 05% 0%);
-  clip-path: ellipse(75% 50% at 0% 0%);
-}
-
-@media only screen and (orientation: landscape) {
-  .calendar {
-    height: 60vh;
-    flex-grow: 6;
-  }
-}
-
-@media only screen and (orientation: portrait) {
-  .calendar {
-    height: 25vh;
-    flex-grow: 6;
-  }
-}
-
 table {
   width: 95%;
   height: 100%;
@@ -311,32 +287,6 @@ td {
   border-style: solid;
   text-align: right;
   vertical-align: top;
-}
-
-.calendarContainer {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 10px;
-}
-
-.calendarKey {
-  display: flex;
-  flex-direction: column;
-  width: 25%;
-  justify-content: space-between;
-  flex-grow: 1;
-}
-
-.calendarKeyItem {
-  margin: auto 0;
-  display: flex;
-  font-size: 20px;
-}
-
-.calendarKeyColor {
-  height: 50px;
-  width: 50px;
-  margin-right: 15px;
 }
 
 .inputHeader {
